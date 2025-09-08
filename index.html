@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dorian Santiago | Game Dev Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dorian Santiago - Game Dev Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,20 +12,33 @@
     <p>Game Developer | Unreal Engine 5</p>
   </header>
 
-  <section id="projects">
+  <section class="projects">
     <h2>Projects</h2>
-    <div class="project-list">
-      <div class="project">
-        <h3><a href="projects/dungeon_crawler.html">Dungeon Crawler RPG</a></h3>
-        <p>Random dungeon generation, class selection, and boss fights.</p>
-      </div>
-      <!-- Add more projects by duplicating the div above -->
+
+    <div class="project-card">
+      <h3><a href="projects/dungeon_crawler.html">Dungeon Crawler RPG</a></h3>
+      <p>Random dungeon generation, class selection, and epic boss fights.</p>
+      <video controls muted>
+        <source src="assets/dungeon_crawler_demo.mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
     </div>
+
+    <!-- You can copy this block for more projects -->
+    <!--
+    <div class="project-card">
+      <h3><a href="projects/other_project.html">Other Project</a></h3>
+      <p>Quick description of another game or system.</p>
+      <video controls muted>
+        <source src="assets/other_demo.mp4" type="video/mp4">
+      </video>
+    </div>
+    -->
+
   </section>
 
   <footer>
-    <p>&copy; 2025 Dorian Santiago</p>
+    <p>© 2025 Dorian Santiago</p>
   </footer>
 </body>
 </html>
-
