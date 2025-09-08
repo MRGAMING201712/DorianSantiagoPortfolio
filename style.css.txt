@@ -1,0 +1,74 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #121212;
+  color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #1e1e1e;
+  padding: 20px;
+  text-align: center;
+}
+
+h1, h2, h3 {
+  margin: 10px 0;
+}
+
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.project {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.project video {
+  display: block;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1e1e1e;
+}
+
+/* Tabs for project pages */
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #333;
+  margin-top: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  background: #1e1e1e;
+  margin-right: 5px;
+  border-radius: 8px 8px 0 0;
+}
+
+.tab.active {
+  background: #333;
+}
+
+.tab-content {
+  display: none;
+  padding: 15px;
+  background: #1e1e1e;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 20px;
+}
+
+.tab-content.active {
+  display: block;
+}
