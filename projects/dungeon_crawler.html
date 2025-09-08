@@ -2,59 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dungeon Crawler RPG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dungeon Crawler RPG - Project</title>
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
+      color: #eaeaea;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #4da6ff;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #aaa;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      text-decoration: none;
+      color: #4da6ff;
+      font-weight: bold;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid #333;
+      margin-bottom: 1rem;
+    }
+
+    .tab {
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      background: #1c1c1c;
+      border: none;
+      color: #ccc;
+      font-weight: bold;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .tab:hover {
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    .tab.active {
+      background: #4da6ff;
+      color: #fff;
+    }
+
+    /* Tab content */
+    .tab-content {
+      display: none;
+      background: #1c1c1c;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Code block */
+    pre {
+      background: #0e0e0e;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      color: #4de074;
+      font-family: "Fira Code", monospace;
+      font-size: 0.95rem;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    img, video {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      color: #777;
+      border-top: 1px solid #333;
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>Dungeon Crawler RPG</h1>
-    <p>Random dungeon generation, class selection, and boss fights.</p>
-    <a href="../index.html">← Back to portfolio</a>
+    <p>Random dungeon generation, class selection, and epic boss fights.</p>
   </header>
 
-  <div class="tabs">
-    <div class="tab active" onclick="showTab('code')">C++ Code</div>
-    <div class="tab" onclick="showTab('blueprint')">Blueprint</div>
-    <div class="tab" onclick="showTab('video')">Gameplay Video</div>
-  </div>
+  <div class="container">
+    <a href="../index.html" class="back-link">← Back to Projects</a>
 
-  <div id="code" class="tab-content active">
-    <pre><code class="cpp">
-// Example: Enemy attack
-void AEnemy::AttackPlayer()
+    <div class="tabs">
+      <button class="tab active" data-tab="cpp">C++ Code</button>
+      <button class="tab" data-tab="blueprint">Blueprint</button>
+      <button class="tab" data-tab="video">Gameplay Video</button>
+    </div>
+
+    <div id="cpp" class="tab-content active">
+      <h2>C++ Code Example</h2>
+      <pre>
+void AMyCharacter::Attack()
 {
-    // Attack logic here
+    if (CanAttack)
+    {
+        PlayAttackMontage();
+        DealDamage();
+    }
 }
-    </code></pre>
-  </div>
+      </pre>
+    </div>
 
-  <div id="blueprint" class="tab-content">
-    <img src="../assets/blueprint_combat.png" alt="Combat Blueprint" width="600">
-    <p>Handles combo attacks and ability activation.</p>
-  </div>
+    <div id="blueprint" class="tab-content">
+      <h2>Blueprint Screenshot</h2>
+      <img src="../assets/blueprint_combat.png" alt="Combat Blueprint">
+      <p>Implements combo attacks and ability activation using Unreal Engine 5 Blueprints.</p>
+    </div>
 
-  <div id="video" class="tab-content">
-    <video width="640" controls>
-      <source src="../assets/dungeon_crawler_demo.mp4" type="video/mp4">
-    </video>
+    <div id="video" class="tab-content">
+      <h2>Gameplay Demo</h2>
+      <video controls>
+        <source src="../assets/dungeon_crawler_demo.mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+    </div>
   </div>
 
   <footer>
-    <p>&copy; 2025 Dorian Santiago</p>
+    <p>© 2025 Dorian Santiago</p>
   </footer>
 
   <script>
-    function showTab(tabId) {
-      const tabs = document.querySelectorAll('.tab');
-      const contents = document.querySelectorAll('.tab-content');
-      tabs.forEach(t => t.classList.remove('active'));
-      contents.forEach(c => c.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
+    const tabs = document.querySelectorAll(".tab");
+    const contents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        contents.forEach(c => c.classList.remove("active"));
+
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.add("active");
+      });
+    });
   </script>
 </body>
 </html>
