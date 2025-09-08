@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dungeon Crawler RPG</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <header>
+    <h1>Dungeon Crawler RPG</h1>
+    <p>Random dungeon generation, class selection, and boss fights.</p>
+    <a href="../index.html">← Back to portfolio</a>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('code')">C++ Code</div>
+    <div class="tab" onclick="showTab('blueprint')">Blueprint</div>
+    <div class="tab" onclick="showTab('video')">Gameplay Video</div>
+  </div>
+
+  <div id="code" class="tab-content active">
+    <pre><code class="cpp">
+// Example: Enemy attack
+void AEnemy::AttackPlayer()
+{
+    // Attack logic here
+}
+    </code></pre>
+  </div>
+
+  <div id="blueprint" class="tab-content">
+    <img src="../assets/blueprint_combat.png" alt="Combat Blueprint" width="600">
+    <p>Handles combo attacks and ability activation.</p>
+  </div>
+
+  <div id="video" class="tab-content">
+    <video width="640" controls>
+      <source src="../assets/dungeon_crawler_demo.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Dorian Santiago</p>
+  </footer>
+
+  <script>
+    function showTab(tabId) {
+      const tabs = document.querySelectorAll('.tab');
+      const contents = document.querySelectorAll('.tab-content');
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
