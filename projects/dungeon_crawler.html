@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dungeon Crawler RPG - Project</title>
+  <title>Dungeon Crawler RPG - Dorian Santiago</title>
   <link rel="stylesheet" href="../style.css">
   <style>
     body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
       color: #eaeaea;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
+      line-height: 1.6;
     }
 
     header {
@@ -22,8 +22,9 @@
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: #4da6ff;
+      margin: 0;
     }
 
     header p {
@@ -33,154 +34,163 @@
 
     .container {
       max-width: 1000px;
-      margin: 2rem auto;
+      margin: 3rem auto;
       padding: 0 1rem;
+    }
+
+    h2 {
+      color: #4da6ff;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      text-align: center;
     }
 
     .back-link {
       display: inline-block;
-      margin-bottom: 1.5rem;
-      text-decoration: none;
-      color: #4da6ff;
+      margin-bottom: 2rem;
+      padding: 0.6rem 1.2rem;
+      background: #4da6ff;
+      color: #fff;
       font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .back-link:hover {
+      background: #3385cc;
     }
 
     /* Tabs */
     .tabs {
+      margin-top: 2rem;
       display: flex;
-      border-bottom: 2px solid #333;
-      margin-bottom: 1rem;
+      gap: 0.5rem;
     }
 
-    .tab {
-      padding: 0.8rem 1.2rem;
-      cursor: pointer;
-      background: #1c1c1c;
+    .tab-button {
+      padding: 0.6rem 1.2rem;
       border: none;
-      color: #ccc;
-      font-weight: bold;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .tab:hover {
-      background: #2a2a2a;
+      background: #2c2c2c;
       color: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.3s ease;
     }
 
-    .tab.active {
+    .tab-button.active {
       background: #4da6ff;
-      color: #fff;
     }
 
-    /* Tab content */
     .tab-content {
       display: none;
-      background: #1c1c1c;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      animation: fadeIn 0.3s ease-in-out;
+      margin-top: 1rem;
     }
 
     .tab-content.active {
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Code block */
+    /* Code & Blueprints */
     pre {
-      background: #0e0e0e;
+      background: #1c1c1c;
       padding: 1rem;
       border-radius: 8px;
       overflow-x: auto;
-      color: #4de074;
-      font-family: "Fira Code", monospace;
       font-size: 0.95rem;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
     }
 
-    img, video {
+    details summary {
+      cursor: pointer;
+      color: #4da6ff;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    img.blueprint {
       max-width: 100%;
       border-radius: 8px;
-      margin-top: 1rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.6);
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      margin-top: 3rem;
-      color: #777;
-      border-top: 1px solid #333;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Dungeon Crawler RPG</h1>
-    <p>Random dungeon generation, class selection, and epic boss fights.</p>
+    <p>Random Dungeon Generation • Class Selection • Boss Fights</p>
   </header>
 
   <div class="container">
     <a href="../index.html" class="back-link">← Back to Home</a>
 
-    <div class="tabs">
-      <button class="tab active" data-tab="cpp">C++ Code</button>
-      <button class="tab" data-tab="blueprint">Blueprint</button>
-      <button class="tab" data-tab="video">Gameplay Video</button>
-    </div>
+    <section>
+      <h2>Project Overview</h2>
+      <p>
+        This Dungeon Crawler RPG features procedural dungeon generation, multiple player classes with unique weapons, 
+        and a final boss encounter. Built in Unreal Engine 5 using a mix of C++ and Blueprints, the project 
+        demonstrates gameplay systems, AI behavior trees, and UI integration.
+      </p>
+    </section>
 
-    <div id="cpp" class="tab-content active">
-      <h2>C++ Code Example</h2>
-      <pre>
-void AMyCharacter::Attack()
-{
-    if (CanAttack)
-    {
-        PlayAttackMontage();
-        DealDamage();
+    <section>
+      <h2>Code & Blueprints</h2>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'cpp')">C++</button>
+        <button class="tab-button" onclick="openTab(event, 'blueprint')">Blueprint</button>
+      </div>
+
+      <!-- C++ Tab -->
+      <div id="cpp" class="tab-content active">
+        <details>
+          <summary>View C++ Code</summary>
+          <pre><code class="language-cpp">
+// Example Dungeon Generator Snippet
+void ADungeonGenerator::GenerateDungeon(int32 Width, int32 Height) {
+    for (int32 X = 0; X < Width; X++) {
+        for (int32 Y = 0; Y < Height; Y++) {
+            if (FMath::RandBool()) {
+                SpawnRoom(X, Y);
+            }
+        }
     }
 }
-      </pre>
-    </div>
+          </code></pre>
+        </details>
+      </div>
 
-    <div id="blueprint" class="tab-content">
-      <h2>Blueprint Screenshot</h2>
-      <img src="../assets/blueprint_combat.png" alt="Combat Blueprint">
-      <p>Implements combo attacks and ability activation using Unreal Engine 5 Blueprints.</p>
-    </div>
+      <!-- Blueprint Tab -->
+      <div id="blueprint" class="tab-content">
+        <details>
+          <summary>View Blueprint Setup</summary>
+          <img src="../assets/blueprint_example.png" alt="Blueprint Example" class="blueprint">
+        </details>
+      </div>
+    </section>
 
-    <div id="video" class="tab-content">
-      <h2>Gameplay Demo</h2>
-      <video controls>
-        <source src="../assets/dungeon_crawler_demo.mp4" type="video/mp4">
-        Your browser does not support video.
-      </video>
-    </div>
+    <section>
+      <h2>Demo Video</h2>
+      <p style="text-align:center;">
+        <iframe width="560" height="315" 
+          src="https://www.youtube.com/embed/your_video_id_here" 
+          title="Dungeon Crawler RPG Demo" 
+          frameborder="0" allowfullscreen></iframe>
+      </p>
+    </section>
   </div>
 
-  <footer>
-    <p>© 2025 Dorian Santiago</p>
-  </footer>
-
   <script>
-    const tabs = document.querySelectorAll(".tab");
-    const contents = document.querySelectorAll(".tab-content");
-
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        contents.forEach(c => c.classList.remove("active"));
-
-        tab.classList.add("active");
-        document.getElementById(tab.dataset.tab).classList.add("active");
+    function openTab(evt, tabId) {
+      document.querySelectorAll(".tab-content").forEach(tab => {
+        tab.classList.remove("active");
       });
-    });
+      document.querySelectorAll(".tab-button").forEach(btn => {
+        btn.classList.remove("active");
+      });
+      document.getElementById(tabId).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
   </script>
 </body>
 </html>
-
