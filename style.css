@@ -151,3 +151,39 @@ footer {
   color: #777;
   border-top: 1px solid #333;
 }
+
+.tabs {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab-button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: #2c2c2c;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.tab-button.active {
+  background: #4da6ff;
+}
+
+.tab-content {
+  display: none;
+  margin-top: 1rem;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+pre {
+  background: #1c1c1c;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
