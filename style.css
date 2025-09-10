@@ -208,72 +208,104 @@ pre {
   margin: 20px auto; /* Centers the container */
 }
 
-/* === Replace your existing CSS for .blueprint-thumb, .modal, .modal-content, and .close with this === */
+/* === Replace your previous modal and thumbnail CSS with this entire block === */
 
-/* Existing styles are fine, but ensure these overrides are present or integrated */
+/* Prevent the main page from scrolling when the modal is open */
+body.modal-open {
+  overflow: hidden;
+}
 
 /* Styles for the "normal size" images that pop out on hover */
 .blueprint-thumb {
-  max-width: 100%; /* Make sure it doesn't overflow its parent */
-  height: auto;    /* Allow height to adjust naturally */
-  display: block;  /* Remove extra space below image */
-  margin: 1.5rem auto; /* Center the image and add vertical space */
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6); /* Nice shadow for depth */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .blueprint-thumb:hover {
-  transform: scale(1.03); /* Slightly enlarge on hover */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.8); /* More prominent shadow on hover */
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.8);
 }
 
-/* The Modal Background (the dark overlay) */
+/* The Modal Background */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stays in place */
-  z-index: 1000; /* Sits on top of everything */
+  display: none;
+  position: fixed;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow-y: auto; /* Only allow vertical scrolling if content is too tall */
-  overflow-x: hidden; /* Prevent horizontal scrolling on the modal itself */
-  background-color: rgba(0,0,0,0.9); /* Black with opacity */
-  padding-top: 20px; /* Add some padding at the top */
-  box-sizing: border-box; /* Include padding in element's total width and height */
+  background-color: rgba(0,0,0,0.9);
+  /* Use Flexbox to center the content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Modal Content (the full-sized image inside the modal) */
+/* A new container to help with centering and scrolling */
+.modal-image-container {
+    max-height: 100%;
+    overflow-y: auto; /* Allow vertical scrolling for very tall images */
+    text-align: center; /* Helps center the image */
+}
+
+
+/* Modal Content (the full-sized image) */
 .modal-content {
-  margin: 0 auto; /* Center the image horizontally */
-  display: block;
-  max-width: 90%; /* Max width for the image to fit the modal */
-  height: auto; /* Allow natural height */
-  /* Remove padding-top from here, moved to .modal */
-  padding-bottom: 20px; /* Add some padding at the bottom for scrolling */
+  display: inline-block; /* Helps with centering */
+  max-width: 90vw;   /* Use 90% of the viewport width */
+  max-height: 90vh;  /* Use 90% of the viewport height */
+  width: auto;
+  height: auto;
 }
-
 
 /* The Close Button ('X') */
 .close {
-  position: fixed; /* Make it fixed relative to the viewport */
+  position: fixed; /* Fixed position relative to the viewport */
   top: 15px;
   right: 35px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
-  transition: 0.3s;
-  z-index: 1001; /* Ensure it's above the modal image */
+  z-index: 1001; /* Make sure it's on top */
   cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
-  color: #bbb;
-  text-decoration: none;
+/* Prev & Next Buttons */
+.prev-slide, .next-slide {
   cursor: pointer;
+  position: fixed; /* Fixed position */
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.3s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none; /* Prevents text selection */
+  z-index: 1001;
+}
+
+/* Position the "next button" to the right */
+.next-slide {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prev-slide {
+  left: 0;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev-slide:hover, .next-slide:hover {
+  background-color: rgba(0,0,0,0.8);
 }
 
 
