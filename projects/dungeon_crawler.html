@@ -144,24 +144,201 @@
       <!-- C++ Tab -->
       <div id="cpp" class="tab-content active">
         <details>
-          <summary>View C++ Code</summary>
+          <summary>Context Aware Attribute Logic</summary>
           <pre><code class="language-cpp">
-// Example Dungeon Generator Snippet
-void ADungeonGenerator::GenerateDungeon(int32 Width, int32 Height) {
-    for (int32 X = 0; X < Width; X++) {
-        for (int32 Y = 0; Y < Height; Y++) {
-            if (FMath::RandBool()) {
-                SpawnRoom(X, Y);
-            }
-        }
-    }
+void UMyAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	FEffectProperties Props;
+	SetEffectProperties(Data, Props);
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+	}
+
+	if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
+	{
+		SetStamina(FMath::Clamp(GetStamina(), 0.f, GetMaxStamina()));
+	}
+}
+
+void UMyAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const
+{
+	Props.EffectContextHandle = Data.EffectSpec.GetContext();
+	Props.SourceASC = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
+
+	if (IsValid(Props.SourceASC) && Props.SourceASC->AbilityActorInfo.IsValid() && Props.SourceASC->AbilityActorInfo.IsValid())
+	{
+		Props.SourceAvatarActor = Props.SourceASC->AbilityActorInfo->AvatarActor.Get();
+		Props.SourceController = Props.SourceASC->AbilityActorInfo->PlayerController.Get();
+		if (Props.SourceController == nullptr && Props.SourceAvatarActor != nullptr)
+		{
+			if (const APawn* Pawn = Cast<APawn>(Props.SourceAvatarActor))
+			{
+				Props.SourceController = Pawn->GetController();
+			}
+		}
+		if (Data.Target.AbilityActorInfo.IsValid())
+		{
+			Props.TargetAvatarActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
+			Props.TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
+			Props.TargetCharacter = Cast<ACharacter>(Props.TargetAvatarActor);
+			Props.TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Props.TargetAvatarActor);
+		}
+	}
 }
           </code></pre>
         </details>
         <details>
-          <summary>View C++ Code</summary>
+          <summary>Reactive UI Data Binding</summary>
           <pre><code class="language-cpp">
-// Testing adding additional tabs
+void UMyOverlayWidgetController::BroadcastInitialValues()
+{
+	const UMyAttributeSet* MyAttributeSet = CastChecked<UMyAttributeSet>(AttributeSet);
+
+	OnHealthChanged.Broadcast(MyAttributeSet->GetHealth());
+	OnMaxHealthChanged.Broadcast(MyAttributeSet->GetMaxHealth());
+	OnStaminaChanged.Broadcast(MyAttributeSet->GetStamina());
+	OnMaxStaminaChanged.Broadcast(MyAttributeSet->GetMaxStamina());
+}
+
+void UMyOverlayWidgetController::BindCallbackToDependencies()
+{
+	const UMyAttributeSet* MyAttributeSet = CastChecked<UMyAttributeSet>(AttributeSet);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		MyAttributeSet->GetHealthAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnHealthChanged.Broadcast(Data.NewValue);
+			}
+		);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		MyAttributeSet->GetMaxHealthAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnMaxHealthChanged.Broadcast(Data.NewValue);
+			}
+		);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		MyAttributeSet->GetStaminaAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnStaminaChanged.Broadcast(Data.NewValue);
+			}
+		);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+		MyAttributeSet->GetMaxStaminaAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnMaxStaminaChanged.Broadcast(Data.NewValue);
+			}
+		);
+          </code></pre>
+        </details>
+
+      <details>
+          <summary>Tag Based Ability Input Handling</summary>
+          <pre><code class="language-cpp">
+void UMyAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
+{
+	for (TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
+	{
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
+		if (const UMyBaseGameplayAbility* MyAbility = Cast<UMyBaseGameplayAbility>(AbilitySpec.Ability))
+		{
+			FGameplayTagContainer& DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
+			DynamicTags.AddTag(MyAbility->StartupInputTag);
+			GiveAbility(AbilitySpec);
+		}
+
+	}
+}
+
+void UMyAbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag)
+{
+	if (!InputTag.IsValid()) return;
+
+	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{
+		FGameplayTagContainer& DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
+		if (DynamicTags.HasTagExact(InputTag))
+		{
+			AbilitySpecInputPressed(AbilitySpec);
+			if(!AbilitySpec.IsActive())
+			{
+				TryActivateAbility(AbilitySpec.Handle);
+			}
+		}
+	}
+}
+
+void UMyAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& InputTag)
+{
+	if (!InputTag.IsValid()) return;
+
+	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{
+		FGameplayTagContainer& DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
+		if (DynamicTags.HasTagExact(InputTag))
+		{
+			TryActivateAbility(AbilitySpec.Handle);
+		}
+	}
+}
+          </code></pre>
+        </details>
+
+      <details>
+          <summary>Data Driven Character Initialization</summary>
+          <pre><code class="language-cpp">
+UMyOverlayWidgetController* UMyAbilitySystemBlueprintLibrary::GetOverlayWidgetController(const UObject* WorldContextObject)
+{
+	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldContextObject, 0))
+	{
+		if (AMyHUD* MyHUD = Cast<AMyHUD>(PC -> GetHUD()))
+		{
+			AUserPlayerState* PS = PC->GetPlayerState<AUserPlayerState>();
+			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
+			UAttributeSet* AS = PS->GetAttributeSet();
+			const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
+			return MyHUD->GetOverlayWidgetController(WidgetControllerParams);
+		}
+	}
+	return nullptr;
+}
+
+void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UAbilitySystemComponent* ASC)
+{
+	AMyGamemode* MyGamemode = Cast<AMyGamemode>(UGameplayStatics::GetGameMode(WorldContextObject));
+	if (MyGamemode == nullptr) return;
+
+	AActor* AvatarActor = ASC->GetAvatarActor();
+
+	UCharacterClassInfo* CharacterClassInfo = MyGamemode->CharacterClassInfo;
+	FCharacterClassDefaultInfo ClassDefaultInfo = MyGamemode->CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
+
+	FGameplayEffectContextHandle PrimaryAttributesContextHandle = ASC->MakeEffectContext();
+	PrimaryAttributesContextHandle.AddSourceObject(AvatarActor);
+	const FGameplayEffectSpecHandle PrimaryAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassDefaultInfo.PrimaryAttributes, Level, PrimaryAttributesContextHandle);
+	ASC->ApplyGameplayEffectSpecToSelf(*PrimaryAttributesSpecHandle.Data.Get());
+
+	FGameplayEffectContextHandle SecondaryAttributesContextHandle = ASC->MakeEffectContext();
+	SecondaryAttributesContextHandle.AddSourceObject(AvatarActor);
+	const FGameplayEffectSpecHandle SecondaryAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassDefaultInfo.SecondaryAttributes, Level, SecondaryAttributesContextHandle);
+	ASC->ApplyGameplayEffectSpecToSelf(*SecondaryAttributesSpecHandle.Data.Get());
+
+	FGameplayEffectContextHandle VitalAttributesContextHandle = ASC->MakeEffectContext();
+	VitalAttributesContextHandle.AddSourceObject(AvatarActor);
+	const FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassDefaultInfo.VitalAttributes, Level, VitalAttributesContextHandle);
+	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
+}
+
           </code></pre>
         </details>
       </div>
@@ -200,5 +377,6 @@ void ADungeonGenerator::GenerateDungeon(int32 Width, int32 Height) {
   </script>
 </body>
 </html>
+
 
 
