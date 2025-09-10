@@ -222,13 +222,14 @@ pre {
   align-items: center;
 }
 
-/* Image inside modal */
 .modal-content {
-  max-width: 90%;
-  max-height: 80%;
+  max-width: 600px;  /* keeps it from being huge */
+  width: auto;
+  height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
+
 
 /* Close button */
 .close {
@@ -243,4 +244,17 @@ pre {
 
 body.modal-open {
   overflow: hidden; /* prevent scrolling when modal is open */
+}
+
+.blueprint-thumb {
+  max-width: 250px;  /* Thumbnail size */
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.blueprint-thumb:hover {
+  transform: scale(1.05);
 }
