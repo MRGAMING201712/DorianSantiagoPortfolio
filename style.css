@@ -210,6 +210,8 @@ pre {
 
 /* === Replace your previous modal CSS with this entire block === */
 
+/* === Replace your previous modal CSS with this entire block === */
+
 /* This new rule locks the main page from scrolling when the modal is open */
 body.modal-open {
   overflow: hidden;
@@ -267,4 +269,3 @@ body.modal-open {
   z-index: 1001;
   cursor: pointer;
 }
-
