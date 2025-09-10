@@ -129,7 +129,6 @@ details summary {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.9);
-  display: flex; /* This MUST be here for centering to work */
   align-items: center;
   justify-content: center;
 }
@@ -152,6 +151,7 @@ details summary {
   cursor: pointer;
   z-index: 2000; /* higher than modal image */
 }
+
 
 
 
