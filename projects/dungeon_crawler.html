@@ -114,10 +114,10 @@
     }
   </style>
 </head>
-<body>
+	<body>
   <header>
-    <h1>Dungeon Crawler RPG</h1>
-    <p>Random Dungeon Generation • Class Selection • Boss Fights</p>
+        <h1>Disassembled</h1>
+        <p>Environmental Storytelling • Puzzles • Dynamic AI</p>
   </header>
 
   <div class="container">
@@ -125,10 +125,11 @@
 
     <section>
       <h2>Project Overview</h2>
-      <p>
-        This Dungeon Crawler RPG features procedural dungeon generation, multiple player classes with unique weapons,
-        and a final boss encounter. Built in Unreal Engine 5 using a mix of C++ and Blueprints, the project
-        demonstrates gameplay systems, AI behavior trees, and UI integration.
+            <p>
+        Disassembled is a survival horror game that emphasizes player immersion through
+        environmental storytelling, puzzles, and dynamic AI encounters. The player navigates
+        abandoned facilities filled with hostile threats, uncovering narrative clues while
+        solving interactive challenges to progress.
       </p>
     </section>
 
@@ -141,8 +142,12 @@
       </div>
 
             <div id="cpp" class="tab-content active">
-				<details>
-          <summary>Context Aware Attribute Logic</summary>
+                <details>
+          <summary>View C++ Code</summary>
+          <pre><code class="language-cpp">
+// Example Disassembled Snippet
+// (You can paste your actual C++ code here)
+			  <summary>Context Aware Attribute Logic</summary>
           <pre><code class="language-cpp">
 void UMyAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
@@ -336,31 +341,14 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
 	const FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassDefaultInfo.VitalAttributes, Level, VitalAttributesContextHandle);
 	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
 }
-
           </code></pre>
         </details>
       </div>
 
             <div id="blueprint" class="tab-content">
-        <details>
-          <summary>Lock On Logic</summary>
-          <img src="../assets/lockon1" alt="Blueprint Example" class="blueprint-thumb">
-          <img src="../assets/lockon1.5" alt="Blueprint Example" class="blueprint-thumb">
-          <img src="../assets/lockon2" alt="Blueprint Example" class="blueprint-thumb">
-          <img src="../assets/lockon3" alt="Blueprint Example" class="blueprint-thumb">
-        </details>
-        <details>
-          <summary>Attack Logic</summary>
-          <img class="blueprint-thumb" src="../assets/attack1" alt="Attack Logic 1">
-          <img class="blueprint-thumb" src="../assets/attack2" alt="Attack Logic 2">
-          <img class="blueprint-thumb" src="../assets/attack3" alt="Attack Logic 3">
-          <img class="blueprint-thumb" src="../assets/attack4" alt="Attack Logic 4">
-        </details>
-        <details>
+                <details>
           <summary>View Blueprint Setup</summary>
-          <img src="../assets/ailogic1" alt="Blueprint Example" class="blueprint-thumb">
-          <img src="../assets/ailogic2" alt="Blueprint Example" class="blueprint-thumb">
-          <img src="../assets/ailogic3" alt="Blueprint Example" class="blueprint-thumb">
+                    <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint-thumb">
         </details>
       </div>
     </section>
@@ -368,18 +356,18 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
     <section>
       <h2>Demo Video</h2>
       <p style="text-align:center;">
-        <iframe width="560" height="315"
+                <iframe width="560" height="315"
           src="https://www.youtube.com/embed/your_video_id_here"
-          title="Dungeon Crawler RPG Demo"
+          title="Disassembled Demo"
           frameborder="0" allowfullscreen></iframe>
       </p>
     </section>
   </div>
 
-  <div id="myModal" class="modal">
-    <span class="close">×</span>
-    <img class="modal-content" id="modalImage">
-  </div>
+  <div id="myModal" class="modal">
+    <span class="close">×</span>
+    <img class="modal-content" id="modalImage">
+  </div>
 
     <script>
     // Tab switching script
@@ -424,6 +412,7 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
 
 </body>
 </html>
+
 
 
 
