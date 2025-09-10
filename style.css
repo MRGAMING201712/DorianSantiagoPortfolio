@@ -197,9 +197,10 @@ pre {
 
 .image-row img {
   width: 100%;        /* fill its container */
-  max-width: 250px;   /* but never bigger than 250px */
+  max-width: 500px;   /* but never bigger than 250px */
   height: auto;
 }
+
 
 
 
