@@ -120,7 +120,6 @@ details summary {
 
 /* Modal Styles */
 .modal {
-  display: none; /* Hidden by default */
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -149,4 +148,5 @@ details summary {
   z-index: 1001;
   cursor: pointer;
 }
+
 
