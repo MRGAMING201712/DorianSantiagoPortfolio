@@ -187,3 +187,16 @@ pre {
   border-radius: 8px;
   overflow-x: auto;
 }
+
+.image-row {
+  display: flex;
+  gap: 1rem; /* space between images */
+  justify-content: center; /* center them horizontally */
+  flex-wrap: wrap; /* wrap to next line if too many */
+}
+
+.image-row img {
+  max-width: 300px; /* size control */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
