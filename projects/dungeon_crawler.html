@@ -358,22 +358,24 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
 <div class="blueprint-container">
   <img class="blueprint-thumb" src="../assets/attack1" alt="Blueprint Attack Logic 1">
 </div>
-
 <div class="blueprint-container">
   <img class="blueprint-thumb" src="../assets/attack2" alt="Blueprint Attack Logic 2">
 </div>
-
 <div class="blueprint-container">
   <img class="blueprint-thumb" src="../assets/attack3" alt="Blueprint Attack Logic 3">
 </div>
-
 <div class="blueprint-container">
   <img class="blueprint-thumb" src="../assets/attack4" alt="Blueprint Attack Logic 4">
 </div>
-
 <div id="myModal" class="modal">
   <span class="close">&times;</span>
-  <img class="modal-content" id="modalImage">
+  
+  <a class="prev-slide">&#10094;</a>
+  <a class="next-slide">&#10095;</a>
+
+  <div class="modal-image-container">
+    <img class="modal-content" id="modalImage">
+  </div>
 </div>
 
 
@@ -416,40 +418,69 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
   </script>
 	<script>
 // Get the single modal
-var modal = document.getElementById("myModal");
+// === Replace your entire old modal script with this ===
 
-// Get the image element inside the modal
-var modalImg = document.getElementById("modalImage");
+// Get modal elements
+const modal = document.getElementById("myModal");
+const modalImg = document.getElementById("modalImage");
+const thumbs = document.querySelectorAll(".blueprint-thumb");
+const closeBtn = document.querySelector(".close");
+const prevBtn = document.querySelector(".prev-slide");
+const nextBtn = document.querySelector(".next-slide");
 
-// Get all images with the class "blueprint-thumb"
-var thumbs = document.getElementsByClassName("blueprint-thumb");
+let currentImageIndex;
 
-// Loop through all the thumbnail images
-for (let i = 0; i < thumbs.length; i++) {
-  // Add a click event to each thumbnail
-  thumbs[i].onclick = function() {
-    modal.style.display = "block";
-    modalImg.src = this.src; // Use the src of the image that was clicked
+// Function to open the modal and show a specific image
+function showImage(index) {
+  if (index >= thumbs.length) {
+    index = 0; // Wrap around to the first image
   }
+  if (index < 0) {
+    index = thumbs.length - 1; // Wrap around to the last image
+  }
+  
+  modal.style.display = "flex"; // Use flex for centering
+  modalImg.src = thumbs[index].src;
+  document.body.classList.add("modal-open"); // Prevent background scrolling
+  currentImageIndex = index;
 }
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+// Add click event to each thumbnail
+thumbs.forEach((thumb, index) => {
+  thumb.addEventListener("click", () => {
+    showImage(index);
+  });
+});
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+// Function to close the modal
+function closeModal() {
   modal.style.display = "none";
+  document.body.classList.remove("modal-open");
 }
 
-// Also close the modal if the user clicks anywhere on the dark background
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+// Event listeners for closing
+closeBtn.addEventListener("click", closeModal);
+
+// Click outside the image to close
+modal.addEventListener("click", (e) => {
+    // We check if the click is on the modal backdrop, not the image or buttons
+    if (e.target.classList.contains('modal')) {
+        closeModal();
     }
-}
+});
+
+// Event listeners for navigation
+nextBtn.addEventListener("click", () => {
+  showImage(currentImageIndex + 1);
+});
+
+prevBtn.addEventListener("click", () => {
+  showImage(currentImageIndex - 1);
+});
 	</script>
 </body>
 </html>
+
 
 
 
