@@ -196,10 +196,10 @@ pre {
 }
 
 .image-row img {
-  max-width: 300px;   /* keep images at a reasonable size */
-  height: auto;       /* keeps aspect ratio */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  width: 100%;        /* fill its container */
+  max-width: 250px;   /* but never bigger than 250px */
+  height: auto;
 }
+
 
 
