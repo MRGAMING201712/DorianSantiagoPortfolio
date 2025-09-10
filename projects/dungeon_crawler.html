@@ -355,46 +355,27 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
 		<details>
           <summary>Attack Logic</summary>
 			
-		<div class="blueprint-container">
-		  <img id="blueprintThumb" src="../assets/attack1" alt="Blueprint Attack Logic">
-		</div>
-		
-		<div id="myModal" class="modal">
-		  <span class="close">&times;</span>
-		
-		  <img class="modal-content" id="modalImage">
-		</div>
+<div class="blueprint-container">
+  <img class="blueprint-thumb" src="../assets/attack1" alt="Blueprint Attack Logic 1">
+</div>
 
-		<div class="blueprint-container">
-		  <img id="blueprintThumb" src="../assets/attack2" alt="Blueprint Attack Logic">
-		</div>
-		
-		<div id="myModal" class="modal">
-		  <span class="close">&times;</span>
-		
-		  <img class="modal-content" id="modalImage">
-		</div>
-		
-		
-		<div class="blueprint-container">
-		  <img id="blueprintThumb" src="../assets/attack3" alt="Blueprint Attack Logic">
-		</div>
-		
-		<div id="myModal" class="modal">
-		  <span class="close">&times;</span>
-		
-		  <img class="modal-content" id="modalImage">
-		</div>
-		
-		<div class="blueprint-container">
-		  <img id="blueprintThumb" src="../assets/attack4" alt="Blueprint Attack Logic">
-		</div>
-		
-		<div id="myModal" class="modal">
-		  <span class="close">&times;</span>
-		
-		  <img class="modal-content" id="modalImage">
-		</div>
+<div class="blueprint-container">
+  <img class="blueprint-thumb" src="../assets/attack2" alt="Blueprint Attack Logic 2">
+</div>
+
+<div class="blueprint-container">
+  <img class="blueprint-thumb" src="../assets/attack3" alt="Blueprint Attack Logic 3">
+</div>
+
+<div class="blueprint-container">
+  <img class="blueprint-thumb" src="../assets/attack4" alt="Blueprint Attack Logic 4">
+</div>
+
+
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
         </details>
 		<details>
           <summary>View Blueprint Setup</summary>
@@ -429,15 +410,22 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
     }
   </script>
 	<script>
-// Get the modal elements
+// Get the single modal
 var modal = document.getElementById("myModal");
-var thumb = document.getElementById("blueprintThumb");
+
+// Get the image element inside the modal
 var modalImg = document.getElementById("modalImage");
 
-// When the user clicks on the thumbnail, open the modal
-thumb.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src; // Set the modal image source to the thumbnail's source
+// Get all images with the class "blueprint-thumb"
+var thumbs = document.getElementsByClassName("blueprint-thumb");
+
+// Loop through all the thumbnail images
+for (let i = 0; i < thumbs.length; i++) {
+  // Add a click event to each thumbnail
+  thumbs[i].onclick = function() {
+    modal.style.display = "block";
+    modalImg.src = this.src; // Use the src of the image that was clicked
+  }
 }
 
 // Get the <span> element that closes the modal
@@ -457,6 +445,7 @@ window.onclick = function(event) {
 	</script>
 </body>
 </html>
+
 
 
 
