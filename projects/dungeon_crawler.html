@@ -1,467 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dungeon Crawler RPG - Dorian Santiago</title>
-  <link rel="stylesheet" href="../style.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
-      color: #eaeaea; 
-      line-height: 1.6;
-    }
-
-    header {
-      text-align: center;
-      padding: 3rem 1rem;
-      background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-    }
-
-    header h1 {
-      font-size: 2.8rem;
-      color: #4da6ff;
-      margin: 0;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: #aaa;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
-
-    h2 {
-      color: #4da6ff;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-      text-align: center;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 2rem;
-      padding: 0.6rem 1.2rem;
-      background: #4da6ff;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
-
-    .back-link:hover {
-      background: #3385cc;
-    }
-
-    /* Tabs */
-    .tabs {
-      margin-top: 2rem;
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .tab-button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      background: #2c2c2c;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
-
-    .tab-button.active {
-      background: #4da6ff;
-    }
-
-    .tab-content {
-      display: none;
-      margin-top: 1rem;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    /* Code & Blueprints */
-    pre {
-      background: #1c1c1c;
-      padding: 1rem;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-size: 0.95rem;
-    }
-
-    details summary {
-      cursor: pointer;
-      color: #4da6ff;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-
-    img.blueprint {
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dungeon Crawler RPG - Dorian Santiago</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <header>
-    <h1>Dungeon Crawler RPG</h1>
-    <p>Random Dungeon Generation • Class Selection • Boss Fights</p>
-  </header>
+  <header>
+    <h1>Dungeon Crawler RPG</h1>
+    <p>Random Dungeon Generation • Class Selection • Boss Fights</p>
+  </header>
 
-  <div class="container">
-    <a href="../index.html" class="back-link">← Back to Home</a>
+  <div class="container">
+    <a href="../index.html" class="back-link">← Back to Home</a>
 
-    <section>
-      <h2>Project Overview</h2>
-      <p>
-        This Dungeon Crawler RPG features procedural dungeon generation, multiple player classes with unique weapons, 
-        and a final boss encounter. Built in Unreal Engine 5 using a mix of C++ and Blueprints, the project 
-        demonstrates gameplay systems, AI behavior trees, and UI integration.
-      </p>
-    </section>
+    <section>
+      <h2>Project Overview</h2>
+      <p>
+        This Dungeon Crawler RPG features procedural dungeon generation, multiple player classes with unique weapons,
+        and a final boss encounter. Built in Unreal Engine 5 using a mix of C++ and Blueprints, the project
+        demonstrates gameplay systems, AI behavior trees, and UI integration.
+      </p>
+    </section>
 
-    <section>
-      <h2>Code & Blueprints</h2>
+    <section>
+      <h2>Code & Blueprints</h2>
 
-      <!-- Tabs -->
-      <div class="tabs">
-        <button class="tab-button active" onclick="openTab(event, 'cpp')">C++</button>
-        <button class="tab-button" onclick="openTab(event, 'blueprint')">Blueprint</button>
-      </div>
+            <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'cpp')">C++</button>
+        <button class="tab-button" onclick="openTab(event, 'blueprint')">Blueprint</button>
+      </div>
 
-      <!-- C++ Tab -->
-      <div id="cpp" class="tab-content active">
-        <details>
-          <summary>Context Aware Attribute Logic</summary>
-          <pre><code class="language-cpp">
-void UMyAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
-{
-	Super::PostGameplayEffectExecute(Data);
+            <div id="cpp" class="tab-content active">
+              </div>
 
-	FEffectProperties Props;
-	SetEffectProperties(Data, Props);
+            <div id="blueprint" class="tab-content">
+        <details>
+          <summary>Lock On Logic</summary>
+          <img src="../assets/lockon1" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/lockon1.5" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/lockon2" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/lockon3" alt="Blueprint Example" class="blueprint-thumb">
+        </details>
+        <details>
+          <summary>Attack Logic</summary>
+          <img class="blueprint-thumb" src="../assets/attack1" alt="Attack Logic 1">
+          <img class="blueprint-thumb" src="../assets/attack2" alt="Attack Logic 2">
+          <img class="blueprint-thumb" src="../assets/attack3" alt="Attack Logic 3">
+          <img class="blueprint-thumb" src="../assets/attack4" alt="Attack Logic 4">
+        </details>
+        <details>
+          <summary>View Blueprint Setup</summary>
+          <img src="../assets/ailogic1" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/ailogic2" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/ailogic3" alt="Blueprint Example" class="blueprint-thumb">
+        </details>
+      </div>
+    </section>
 
-	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
-	{
-		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
-	}
+    <section>
+      <h2>Demo Video</h2>
+      <p style="text-align:center;">
+        <iframe width="560" height="315"
+          src="https://www.youtube.com/embed/your_video_id_here"
+          title="Dungeon Crawler RPG Demo"
+          frameborder="0" allowfullscreen></iframe>
+      </p>
+    </section>
+  </div>
 
-	if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
-	{
-		SetStamina(FMath::Clamp(GetStamina(), 0.f, GetMaxStamina()));
-	}
-}
-
-void UMyAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const
-{
-	Props.EffectContextHandle = Data.EffectSpec.GetContext();
-	Props.SourceASC = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
-
-	if (IsValid(Props.SourceASC) && Props.SourceASC->AbilityActorInfo.IsValid() && Props.SourceASC->AbilityActorInfo.IsValid())
-	{
-		Props.SourceAvatarActor = Props.SourceASC->AbilityActorInfo->AvatarActor.Get();
-		Props.SourceController = Props.SourceASC->AbilityActorInfo->PlayerController.Get();
-		if (Props.SourceController == nullptr && Props.SourceAvatarActor != nullptr)
-		{
-			if (const APawn* Pawn = Cast<APawn>(Props.SourceAvatarActor))
-			{
-				Props.SourceController = Pawn->GetController();
-			}
-		}
-		if (Data.Target.AbilityActorInfo.IsValid())
-		{
-			Props.TargetAvatarActor = Data.Target.AbilityActorInfo->AvatarActor.Get();
-			Props.TargetController = Data.Target.AbilityActorInfo->PlayerController.Get();
-			Props.TargetCharacter = Cast<ACharacter>(Props.TargetAvatarActor);
-			Props.TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Props.TargetAvatarActor);
-		}
-	}
-}
-          </code></pre>
-        </details>
-        <details>
-          <summary>Reactive UI Data Binding</summary>
-          <pre><code class="language-cpp">
-void UMyOverlayWidgetController::BroadcastInitialValues()
-{
-	const UMyAttributeSet* MyAttributeSet = CastChecked<UMyAttributeSet>(AttributeSet);
-
-	OnHealthChanged.Broadcast(MyAttributeSet->GetHealth());
-	OnMaxHealthChanged.Broadcast(MyAttributeSet->GetMaxHealth());
-	OnStaminaChanged.Broadcast(MyAttributeSet->GetStamina());
-	OnMaxStaminaChanged.Broadcast(MyAttributeSet->GetMaxStamina());
-}
-
-void UMyOverlayWidgetController::BindCallbackToDependencies()
-{
-	const UMyAttributeSet* MyAttributeSet = CastChecked<UMyAttributeSet>(AttributeSet);
-
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		MyAttributeSet->GetHealthAttribute()).AddLambda(
-			[this](const FOnAttributeChangeData& Data)
-			{
-				OnHealthChanged.Broadcast(Data.NewValue);
-			}
-		);
-
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		MyAttributeSet->GetMaxHealthAttribute()).AddLambda(
-			[this](const FOnAttributeChangeData& Data)
-			{
-				OnMaxHealthChanged.Broadcast(Data.NewValue);
-			}
-		);
-
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		MyAttributeSet->GetStaminaAttribute()).AddLambda(
-			[this](const FOnAttributeChangeData& Data)
-			{
-				OnStaminaChanged.Broadcast(Data.NewValue);
-			}
-		);
-
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-		MyAttributeSet->GetMaxStaminaAttribute()).AddLambda(
-			[this](const FOnAttributeChangeData& Data)
-			{
-				OnMaxStaminaChanged.Broadcast(Data.NewValue);
-			}
-		);
-          </code></pre>
-        </details>
-
-      <details>
-          <summary>Tag Based Ability Input Handling</summary>
-          <pre><code class="language-cpp">
-void UMyAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
-{
-	for (TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
-	{
-		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
-		if (const UMyBaseGameplayAbility* MyAbility = Cast<UMyBaseGameplayAbility>(AbilitySpec.Ability))
-		{
-			FGameplayTagContainer& DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
-			DynamicTags.AddTag(MyAbility->StartupInputTag);
-			GiveAbility(AbilitySpec);
-		}
-
-	}
-}
-
-void UMyAbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag)
-{
-	if (!InputTag.IsValid()) return;
-
-	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
-	{
-		FGameplayTagContainer& DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
-		if (DynamicTags.HasTagExact(InputTag))
-		{
-			AbilitySpecInputPressed(AbilitySpec);
-			if(!AbilitySpec.IsActive())
-			{
-				TryActivateAbility(AbilitySpec.Handle);
-			}
-		}
-	}
-}
-
-void UMyAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& InputTag)
-{
-	if (!InputTag.IsValid()) return;
-
-	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
-	{
-		FGameplayTagContainer& DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
-		if (DynamicTags.HasTagExact(InputTag))
-		{
-			TryActivateAbility(AbilitySpec.Handle);
-		}
-	}
-}
-          </code></pre>
-        </details>
-
-      <details>
-          <summary>Data Driven Character Initialization</summary>
-          <pre><code class="language-cpp">
-UMyOverlayWidgetController* UMyAbilitySystemBlueprintLibrary::GetOverlayWidgetController(const UObject* WorldContextObject)
-{
-	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldContextObject, 0))
-	{
-		if (AMyHUD* MyHUD = Cast<AMyHUD>(PC -> GetHUD()))
-		{
-			AUserPlayerState* PS = PC->GetPlayerState<AUserPlayerState>();
-			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
-			UAttributeSet* AS = PS->GetAttributeSet();
-			const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
-			return MyHUD->GetOverlayWidgetController(WidgetControllerParams);
-		}
-	}
-	return nullptr;
-}
-
-void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UAbilitySystemComponent* ASC)
-{
-	AMyGamemode* MyGamemode = Cast<AMyGamemode>(UGameplayStatics::GetGameMode(WorldContextObject));
-	if (MyGamemode == nullptr) return;
-
-	AActor* AvatarActor = ASC->GetAvatarActor();
-
-	UCharacterClassInfo* CharacterClassInfo = MyGamemode->CharacterClassInfo;
-	FCharacterClassDefaultInfo ClassDefaultInfo = MyGamemode->CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
-
-	FGameplayEffectContextHandle PrimaryAttributesContextHandle = ASC->MakeEffectContext();
-	PrimaryAttributesContextHandle.AddSourceObject(AvatarActor);
-	const FGameplayEffectSpecHandle PrimaryAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassDefaultInfo.PrimaryAttributes, Level, PrimaryAttributesContextHandle);
-	ASC->ApplyGameplayEffectSpecToSelf(*PrimaryAttributesSpecHandle.Data.Get());
-
-	FGameplayEffectContextHandle SecondaryAttributesContextHandle = ASC->MakeEffectContext();
-	SecondaryAttributesContextHandle.AddSourceObject(AvatarActor);
-	const FGameplayEffectSpecHandle SecondaryAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassDefaultInfo.SecondaryAttributes, Level, SecondaryAttributesContextHandle);
-	ASC->ApplyGameplayEffectSpecToSelf(*SecondaryAttributesSpecHandle.Data.Get());
-
-	FGameplayEffectContextHandle VitalAttributesContextHandle = ASC->MakeEffectContext();
-	VitalAttributesContextHandle.AddSourceObject(AvatarActor);
-	const FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(ClassDefaultInfo.VitalAttributes, Level, VitalAttributesContextHandle);
-	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
-}
-
-          </code></pre>
-        </details>
-      </div>
-
-      <!-- Blueprint Tab -->
-      <div id="blueprint" class="tab-content">
-        <details>
-          <summary>Lock On Logic</summary>
-          <img src="../assets/lockon1" alt="Blueprint Example" class="blueprint">
-          <img src="../assets/lockon1.5" alt="Blueprint Example" class="blueprint">
-          <img src="../assets/lockon2" alt="Blueprint Example" class="blueprint">
-          <img src="../assets/lockon3" alt="Blueprint Example" class="blueprint">
-        </details>
-		  
-<details>
-  <summary>Attack Logic</summary>
-  <div class="blueprint-container">
-    <img class="blueprint-thumb" src="../assets/attack1" alt="Attack Logic 1">
-    <img class="blueprint-thumb" src="../assets/attack2" alt="Attack Logic 2">
-    <img class="blueprint-thumb" src="../assets/attack3" alt="Attack Logic 3">
-    <img class="blueprint-thumb" src="../assets/attack4" alt="Attack Logic 4">
-  </div>
-</details>
-		  
-		<details>
-          <summary>View Blueprint Setup</summary>
-          <img src="../assets/ailogic1" alt="Blueprint Example" class="blueprint">
-          <img src="../assets/ailogic2" alt="Blueprint Example" class="blueprint">
-          <img src="../assets/ailogic3" alt="Blueprint Example" class="blueprint">
-        </details>
-      </div>
-    </section>
-
-    <section>
-      <h2>Demo Video</h2>
-      <p style="text-align:center;">
-        <iframe width="560" height="315" 
-          src="https://www.youtube.com/embed/your_video_id_here" 
-          title="Dungeon Crawler RPG Demo" 
-          frameborder="0" allowfullscreen></iframe>
-      </p>
-    </section>
+  <div id="myModal" class="modal">
+    <span class="close">×</span>
+    <img class="modal-content" id="modalImage">
   </div>
 
-  <script>
-    function openTab(evt, tabId) {
-      document.querySelectorAll(".tab-content").forEach(tab => {
-        tab.classList.remove("active");
+  <script>
+    // Tab switching script
+    function openTab(evt, tabId) {
+      document.querySelectorAll(".tab-content").forEach(tab => {
+        tab.classList.remove("active");
+      });
+      document.querySelectorAll(".tab-button").forEach(btn => {
+        btn.classList.remove("active");
+      });
+      document.getElementById(tabId).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+
+    // Modal script
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("modalImage");
+    const thumbs = document.querySelectorAll(".blueprint-thumb");
+    const closeBtn = document.querySelector(".close");
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = thumb.src;
+        document.body.classList.add("modal-open");
       });
-      document.querySelectorAll(".tab-button").forEach(btn => {
-        btn.classList.remove("active");
-      });
-      document.getElementById(tabId).classList.add("active");
-      evt.currentTarget.classList.add("active");
+    });
+
+    function closeModal() {
+      modal.style.display = "none";
+      document.body.classList.remove("modal-open");
     }
-  </script>
-	<script>
-// === Replace your entire modal script with this ===
 
-// Get modal elements
-const modal = document.getElementById("myModal");
-const modalImg = document.getElementById("modalImage");
-const thumbs = document.querySelectorAll(".blueprint-thumb");
-const closeBtn = document.querySelector(".close");
+    closeBtn.addEventListener("click", closeModal);
 
-// Add a click event to each thumbnail image
-thumbs.forEach(thumb => {
-  thumb.addEventListener("click", () => {
-    modal.style.display = "flex"; // Use "flex" to enable the centering
-    modalImg.src = thumb.src;
-    document.body.classList.add("modal-open"); // Add class to body to disable scrolling
-  });
-});
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+  </script>
 
-// Function to close the modal
-function closeModal() {
-  modal.style.display = "none";
-  document.body.classList.remove("modal-open"); // Remove class to re-enable scrolling
-}
-
-// Add click event to the 'X' close button
-closeBtn.addEventListener("click", closeModal);
-
-// Add click event to close the modal by clicking on the background
-modal.addEventListener("click", (event) => {
-  // Check if the click was on the dark background itself, not the image
-  if (event.target === modal) {
-    closeModal();
-  }
-});
-	</script>
-
-	<div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="modalImage">
-</div>
-	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
