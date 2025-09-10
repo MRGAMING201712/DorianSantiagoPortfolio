@@ -143,14 +143,14 @@ details summary {
 }
 
 .close {
-  position: fixed;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  z-index: 1001;
-  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 2000; /* higher than modal image */
 }
 
 
