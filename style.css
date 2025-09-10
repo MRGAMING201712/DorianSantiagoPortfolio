@@ -134,8 +134,8 @@ details summary {
 
 /* Modal image */
 .modal-content {
-  max-width: 70vw;
-  max-height: 80vh;
+  max-width: 90vw;
+  max-height: 90vh;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
@@ -150,6 +150,7 @@ details summary {
   z-index: 1001;
   cursor: pointer;
 }
+
 
 
 
