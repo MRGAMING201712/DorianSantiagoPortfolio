@@ -7,7 +7,7 @@ body {
   line-height: 1.6;
 }
 body.modal-open {
-  overflow: hidden; /* prevent scrolling when modal is open */
+  overflow: hidden; /* prevent scrolling when modal is open */ 
 }
 
 header {
@@ -149,3 +149,4 @@ details summary {
   z-index: 1001;
   cursor: pointer;
 }
+
