@@ -4,9 +4,153 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dungeon Crawler RPG - Dorian Santiago</title>
-<link rel="stylesheet" href="../style.css">
   <style>
-   
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
+      color: #eaeaea;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      color: #4da6ff;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #aaa;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      color: #4da6ff;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      padding: 0.6rem 1.2rem;
+      background: #4da6ff;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .back-link:hover {
+      background: #3385cc;
+    }
+
+    /* Tabs */
+    .tabs {
+      margin-top: 2rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .tab-button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: #2c2c2c;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .tab-button.active {
+      background: #4da6ff;
+    }
+
+    .tab-content {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Code & Blueprints */
+    pre {
+      background: #1c1c1c;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+    }
+
+    details summary {
+      cursor: pointer;
+      color: #4da6ff;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    img.blueprint {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    .blueprint-thumb {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.5rem auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .blueprint-thumb:hover {
+      transform: scale(1.03);
+    }
+    
+    /* Modal Styles */
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  align-items: center;
+  justify-content: center;
+}
+
+
+.modal-content {
+  max-width: 90vw;   /* Allows the image to be up to 90% of the screen width */
+  max-height: 90vh;  /* Allows the image to be up to 90% of the screen height */
+  overflow-y: auto;  /* Adds a scrollbar ONLY if the image is still too tall */
+}
+
+
+
   </style>
 </head>
 <body>
@@ -319,6 +463,7 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
 
 </body>
 </html>
+
 
 
 
