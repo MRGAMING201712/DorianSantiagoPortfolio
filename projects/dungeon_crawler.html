@@ -149,7 +149,16 @@
   overflow-y: auto;  /* Adds a scrollbar ONLY if the image is still too tall */
 }
 
-
+.close {
+  position: fixed;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  z-index: 1001; /* Ensures it's on top of the image */
+  cursor: pointer;
+}
 
   </style>
 </head>
@@ -463,4 +472,5 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
 
 </body>
 </html>
+
 
