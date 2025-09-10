@@ -208,9 +208,9 @@ pre {
   margin: 20px auto; /* Centers the container */
 }
 
-/* === Replace your previous modal CSS with this entire block === */
+/* === PASTE THIS CSS INTO YOUR <style> BLOCK === */
 
-/* Locks the main page from scrolling when the modal is open */
+/* This new rule locks the main page from scrolling when the modal is open */
 body.modal-open {
   overflow: hidden;
 }
