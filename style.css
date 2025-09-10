@@ -208,52 +208,65 @@ pre {
   margin: 20px auto; /* Centers the container */
 }
 
-/* === PASTE THIS CSS INTO YOUR <style> BLOCK === */
+/* === Replace your existing CSS for .blueprint-thumb, .modal, .modal-content, and .close with this === */
 
-/* Style for the clickable thumbnail image */
+/* Existing styles are fine, but ensure these overrides are present or integrated */
+
+/* Styles for the "normal size" images that pop out on hover */
 .blueprint-thumb {
-  width: 100%; /* Makes the image fill its container */
-  height: 250px; /* Gives it a consistent height */
-  object-fit: cover; /* Crops the image to fit without distortion */
-  border: 1px solid #444;
-  border-radius: 4px;
-  cursor: pointer; /* Shows a hand cursor on hover */
-  transition: transform 0.2s ease;
-  margin-bottom: 1rem; /* Adds some space between thumbnails */
+  max-width: 100%; /* Make sure it doesn't overflow its parent */
+  height: auto;    /* Allow height to adjust naturally */
+  display: block;  /* Remove extra space below image */
+  margin: 1.5rem auto; /* Center the image and add vertical space */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6); /* Nice shadow for depth */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions */
 }
 
 .blueprint-thumb:hover {
-  transform: scale(1.02); /* Slight zoom effect on hover */
+  transform: scale(1.03); /* Slightly enlarge on hover */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.8); /* More prominent shadow on hover */
 }
 
 /* The Modal Background (the dark overlay) */
 .modal {
   display: none; /* Hidden by default */
-  position: fixed; /* Stays in place, covering the whole screen */
-  z-index: 1000; /* Sits on top of all other content */
+  position: fixed; /* Stays in place */
+  z-index: 1000; /* Sits on top of everything */
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* Allows scrolling for very large images */
-  background-color: rgba(0,0,0,0.9); /* Semi-transparent black background */
+  overflow-y: auto; /* Only allow vertical scrolling if content is too tall */
+  overflow-x: hidden; /* Prevent horizontal scrolling on the modal itself */
+  background-color: rgba(0,0,0,0.9); /* Black with opacity */
+  padding-top: 20px; /* Add some padding at the top */
+  box-sizing: border-box; /* Include padding in element's total width and height */
 }
 
-/* Modal Content (the full-sized image) */
+/* Modal Content (the full-sized image inside the modal) */
 .modal-content {
-  margin: auto;
+  margin: 0 auto; /* Center the image horizontally */
   display: block;
-  padding: 50px 0; /* Adds space so the image isn't stuck at the top */
+  max-width: 90%; /* Max width for the image to fit the modal */
+  height: auto; /* Allow natural height */
+  /* Remove padding-top from here, moved to .modal */
+  padding-bottom: 20px; /* Add some padding at the bottom for scrolling */
 }
+
 
 /* The Close Button ('X') */
 .close {
-  position: absolute;
+  position: fixed; /* Make it fixed relative to the viewport */
   top: 15px;
   right: 35px;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;
+  transition: 0.3s;
+  z-index: 1001; /* Ensure it's above the modal image */
+  cursor: pointer;
 }
 
 .close:hover,
