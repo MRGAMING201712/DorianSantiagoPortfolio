@@ -6,113 +6,157 @@
   <title>Dungeon Crawler Souls Like - Dorian Santiago</title>
   <link rel="stylesheet" href="../style.css">
   <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
-      color: #eaeaea;
-      line-height: 1.6;
-    }
+  /* Reset & Base */
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
+    color: #eaeaea;
+    line-height: 1.6;
+  }
 
-    header {
-      text-align: center;
-      padding: 0rem 0rem;
-      background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-    }
+  /* Header */
+  header {
+    text-align: center;
+    padding: 1.5rem 1rem; /* Reduced from 3rem to remove extra buffer */
+    background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  }
 
-    header h1 {
-      font-size: 2.8rem;
-      color: #4da6ff;
-      margin: 0;
-    }
+  header h1 {
+    font-size: 2.8rem;
+    color: #4da6ff;
+    margin: 0;
+  }
 
-    header p {
-      font-size: 1.2rem;
-      color: #aaa;
-    }
+  header p {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin: 0.3rem 0 0 0; /* Optional small spacing below title */
+  }
 
-	.container {
-	  margin: 0 auto;
-	  padding: 0 0rem;
-	}
+  /* Main Container */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto; /* No top margin */
+    padding: 2rem 1rem; /* Space inside container, below header */
+  }
 
+  /* Section Titles */
+  h2 {
+    color: #4da6ff;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+  }
 
-    h2 {
-      color: #4da6ff;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-      text-align: center;
-    }
+  /* Back Link */
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 0.6rem 1.2rem;
+    background: #4da6ff;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
 
-    .back-link {
-      display: inline-block;
-      margin-bottom: 2rem;
-      padding: 0.6rem 1.2rem;
-      background: #4da6ff;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
+  .back-link:hover {
+    background: #3385cc;
+  }
 
-    .back-link:hover {
-      background: #3385cc;
-    }
+  /* Tabs */
+  .tabs {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.5rem;
+  }
 
-    /* Tabs */
-    .tabs {
-      margin-top: 2rem;
-      display: flex;
-      gap: 0.5rem;
-    }
+  .tab-button {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    background: #2c2c2c;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
 
-    .tab-button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      background: #2c2c2c;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
+  .tab-button.active {
+    background: #4da6ff;
+  }
 
-    .tab-button.active {
-      background: #4da6ff;
-    }
+  .tab-content {
+    display: none;
+    margin-top: 1rem;
+  }
 
-    .tab-content {
-      display: none;
-      margin-top: 1rem;
-    }
+  .tab-content.active {
+    display: block;
+  }
 
-    .tab-content.active {
-      display: block;
-    }
+  /* Code & Blueprints */
+  pre {
+    background: #1c1c1c;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.95rem;
+  }
 
-    /* Code & Blueprints */
-    pre {
-      background: #1c1c1c;
-      padding: 0rem;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-size: 0.95rem;
-    }
+  details summary {
+    cursor: pointer;
+    color: #4da6ff;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
 
-    details summary {
-      cursor: pointer;
-      color: #4da6ff;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
+  img.blueprint, .blueprint-thumb {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+  }
 
-    img.blueprint {
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    }
-  </style>
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding: 1rem;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+  }
+
+  .close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .modal-open {
+    overflow: hidden;
+  }
+</style>
 </head>
 	<body>
   <header>
@@ -423,6 +467,7 @@ void UMyAbilitySystemBlueprintLibrary::InitializeDefaultAttributes(const UObject
 
 </body>
 </html>
+
 
 
 
