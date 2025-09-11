@@ -1,195 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Disassembled - Dorian Santiago</title>
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style.css">
   <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
-      color: #eaeaea;
-      line-height: 1.6;
-    }
+  /* Reset & Base */ 
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
+    color: #eaeaea;
+    line-height: 1.6;
+  }
 
-    header {
-      text-align: center;
-      padding: 3rem 1rem;
-      background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-    }
+  /* Header */
+  header {
+    text-align: center;
+    padding: 01.5em 1rem; /* Reduced from 3rem to remove extra buffer */
+    background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  }
 
-    header h1 {
-      font-size: 2.8rem;
-      color: #4da6ff;
-      margin: 0;
-    }
+  header h1 {
+    font-size: 2.8rem;
+    color: #4da6ff;
+    margin: 0;
+  }
 
-    header p {
-      font-size: 1.2rem;
-      color: #aaa;
-    }
+  header p {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin: 0.3rem 0 0 0; /* Optional small spacing below title */
+  }
 
-    .container {
-      max-width: 1000px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
+  /* Main Container */
+  .container {
+    max-width: 1000px;
+    margin:  auto; /* No top margin */
+    padding: 2rem 1rem; /* Space inside container, below header */
+  }
 
-    h2 {
-      color: #4da6ff;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-      text-align: center;
-    }
+  /* Section Titles */
+  h2 {
+    color: #4da6ff;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+  }
 
-    .back-link {
-      display: inline-block;
-      margin-bottom: 2rem;
-      padding: 0.6rem 1.2rem;
-      background: #4da6ff;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
+  /* Back Link */
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 0.6rem 1.2rem;
+    background: #4da6ff;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
 
-    .back-link:hover {
-      background: #3385cc;
-    }
+  .back-link:hover {
+    background: #3385cc;
+  }
 
-    /* Tabs */
-    .tabs {
-      margin-top: 2rem;
-      display: flex;
-      gap: 0.5rem;
-    }
+  /* Tabs */
+  .tabs {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.5rem;
+  }
 
-    .tab-button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      background: #2c2c2c;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
+  .tab-button {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    background: #2c2c2c;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
 
-    .tab-button.active {
-      background: #4da6ff;
-    }
+  .tab-button.active {
+    background: #4da6ff;
+  }
 
-    .tab-content {
-      display: none;
-      margin-top: 1rem;
-    }
+  .tab-content {
+    display: none;
+    margin-top: 1rem;
+  }
 
-    .tab-content.active {
-      display: block;
-    }
+  .tab-content.active {
+    display: block;
+  }
 
-    /* Code & Blueprints */
-    pre {
-      background: #1c1c1c;
-      padding: 1rem;
-      border-radius: 8px;
-      overflow-x: auto;
-      font-size: 0.95rem;
-    }
+  /* Code & Blueprints */
+  pre {
+    background: #1c1c1c;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.95rem;
+  }
 
-    details summary {
-      cursor: pointer;
-      color: #4da6ff;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
+  details summary {
+    cursor: pointer;
+    color: #4da6ff;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
 
-    img.blueprint {
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    }
-  </style>
+  img.blueprint, .blueprint-thumb {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding: 1rem;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+  }
+
+  .close {
+    position: fixed;
+    top: 1rem;
+    right: 1.5rem;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .modal-open {
+    overflow: hidden;
+  }
+
+.blueprint-thumb {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blueprint-thumb:hover {
+  transform: scale(1.05); /* slightly larger */
+  box-shadow: 0 8px 20px rgba(77, 166, 255, 0.6); /* glowing blue shadow */
+}
+
+</style>
 </head>
-<body>
-  <header>
-    <h1>Disassembled</h1>
-    <p>Environmental Storytelling • Puzzles • Dynamic AI</p>
-  </header>
+	<body>
+  <header>
+        <h1>Disassembled</h1>
+        <p>Environmental Storytelling • Puzzles • Dynamic AI</p>
+  </header>
 
-  <div class="container">
-    <a href="../index.html" class="back-link">← Back to Home</a>
+  <div class="container">
+    <a href="../index.html" class="back-link">← Back to Home</a>
 
-    <section>
-      <h2>Project Overview</h2>
-      <p>
+    <section>
+      <h2>Project Overview</h2>
+       <p>
         Disassembled is a survival horror game that emphasizes player immersion through 
         environmental storytelling, puzzles, and dynamic AI encounters. The player navigates 
         abandoned facilities filled with hostile threats, uncovering narrative clues while 
         solving interactive challenges to progress.
-      </p>
-    </section>
+      </p>
+    </section>
 
-    <section>
-      <h2>Code & Blueprints</h2>
+    <section>
+      <h2>Code & Blueprints</h2>
 
-      <!-- Tabs -->
-      <div class="tabs">
-        <button class="tab-button active" onclick="openTab(event, 'cpp')">C++</button>
-        <button class="tab-button" onclick="openTab(event, 'blueprint')">Blueprint</button>
-      </div>
+      <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'cpp')">C++</button>
+        <button class="tab-button" onclick="openTab(event, 'blueprint')">Blueprint</button>
+      </div>
 
-      <!-- C++ Tab -->
-      <div id="cpp" class="tab-content active">
-        <details>
-          <summary>View C++ Code</summary>
-          <pre><code class="language-cpp">
-// Example Disassembled Snippet
-          </code></pre>
-        </details>
-        <details>
-          <summary>View C++ Code</summary>
-          <pre><code class="language-cpp">
-// Testing adding additional tabs
-          </code></pre>
-        </details>
-      </div>
+            <div id="cpp" class="tab-content active">
+                <details>
+			  <summary>Context Aware Attribute Logic</summary>
+          <pre><code class="language-cpp">
+// add text
+          </code></pre>
+        </details>
+        <details>
+          <summary>Reactive UI Data Binding</summary>
+          <pre><code class="language-cpp">
+// add text
+          </code></pre>
+        </details>
 
-      <!-- Blueprint Tab -->
-      <div id="blueprint" class="tab-content">
-        <details>
-          <summary>View Blueprint Setup</summary>
-          <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint">
-        </details>
-      </div>
-    </section>
+      <details>
+          <summary>Tag Based Ability Input Handling</summary>
+          <pre><code class="language-cpp">
+// add text
+          </code></pre>
+        </details>
 
-    <section>
-      <h2>Demo Video</h2>
-      <p style="text-align:center;">
-        <iframe width="560" height="315" 
-          src="https://www.youtube.com/embed/your_video_id_here" 
-          title="Dungeon Crawler RPG Demo" 
-          frameborder="0" allowfullscreen></iframe>
-      </p>
-    </section>
+      <details>
+          <summary>Data Driven Character Initialization</summary>
+          <pre><code class="language-cpp">
+// add text
+          </code></pre>
+        </details>
+      </div>
+
+            <div id="blueprint" class="tab-content">
+                <details>
+          <summary>Lock On Logic</summary>
+          <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint-thumb">
+        </details>
+        <details>
+          <summary>Attack Logic</summary>
+          <img class="blueprint-thumb" src="../assets/blueprint_combat.png" alt="Attack Logic 1">
+          <img class="blueprint-thumb" src="../assets/blueprint_combat.png" alt="Attack Logic 2">
+          <img class="blueprint-thumb" src="../assets/blueprint_combat.png" alt="Attack Logic 3">
+          <img class="blueprint-thumb" src="../assets/blueprint_combat.png" alt="Attack Logic 4">
+        </details>
+        <details>
+          <summary>AI Logic</summary>
+          <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint-thumb">
+          <img src="../assets/blueprint_combat.png" alt="Blueprint Example" class="blueprint-thumb">
+        </details>
+      </div>
+    </section>
+
+<section>
+  <h2>Demo Video</h2>
+  <p style="text-align:center;">
+    <iframe width="560" height="315" 
+      src="https://www.youtube.com/embed/ZAQzzfdOQ1g" 
+      title="Disassembled Demo" 
+      frameborder="0" allowfullscreen>
+    </iframe>
+  </p>
+</section>
+
+
+  </div>
+
+  <div id="myModal" class="modal">
+    <span class="close">×</span>
+    <img class="modal-content" id="modalImage">
   </div>
 
-  <script>
-    function openTab(evt, tabId) {
-      document.querySelectorAll(".tab-content").forEach(tab => {
-        tab.classList.remove("active");
-      });
-      document.querySelectorAll(".tab-button").forEach(btn => {
-        btn.classList.remove("active");
-      });
-      document.getElementById(tabId).classList.add("active");
-      evt.currentTarget.classList.add("active");
-    }
-  </script>
+    <script>
+    // Tab switching script
+    function openTab(evt, tabId) {
+      document.querySelectorAll(".tab-content").forEach(tab => {
+        tab.classList.remove("active");
+      });
+      document.querySelectorAll(".tab-button").forEach(btn => {
+        btn.classList.remove("active");
+      });
+      document.getElementById(tabId).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+
+    // Modal script
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("modalImage");
+    const thumbs = document.querySelectorAll(".blueprint-thumb");
+    const closeBtn = document.querySelector(".close");
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = thumb.src;
+        document.body.classList.add("modal-open");
+      });
+    });
+
+    function closeModal() {
+      modal.style.display = "none";
+      document.body.classList.remove("modal-open");
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+  </script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
