@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bump In The Night · Dorian Santiago</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: project pages share the homepage's engine-panel look: hero with a property strip, system cards, collapsible C++ blocks, capture galleries */
+:root{
+  --bg:#eef0f4; --panel:#ffffff; --ink:#151a2b; --muted:#5a6178; --line:#d5d9e3;
+  --accent:#d9561f; --accent-ink:#ffffff; --cool:#2f4fbf; --chip:#e4e8f2; --shot:#1b2033;
+  --code-bg:#161a2a; --code-fg:#dfe3f0; --code-k:#ff8a52; --code-t:#8ea6ff; --code-c:#7f88a6;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1220; --panel:#171b2d; --ink:#e7e9f2; --muted:#9aa1b9; --line:#2a3049;
+  --accent:#ff7a3d; --accent-ink:#1a0d05; --cool:#8ea6ff; --chip:#22283f; --shot:#0b0e19;
+  --code-bg:#0b0e19; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1220; --panel:#171b2d; --ink:#e7e9f2; --muted:#9aa1b9; --line:#2a3049;
+  --accent:#ff7a3d; --accent-ink:#1a0d05; --cool:#8ea6ff; --chip:#22283f; --shot:#0b0e19;
+  --code-bg:#0b0e19; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+img{max-width:100%}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+a{color:var(--cool)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.note{color:var(--muted);font-size:15px;max-width:65ch}
+
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+nav .back{font-family:var(--display);font-weight:700;font-size:18px;text-decoration:none;color:var(--ink)}
+nav .links{display:flex;gap:18px;flex-wrap:wrap}
+nav .links a{color:var(--muted);text-decoration:none;font-size:15px}
+nav .links a:hover{color:var(--ink)}
+
+.hero{display:grid;gap:18px}
+.hero h1{font-size:clamp(38px,7vw,68px);font-weight:800;letter-spacing:-.02em}
+.lede{font-size:clamp(18px,2.4vw,21px);color:var(--muted);max-width:60ch}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:3px;background:var(--chip);color:var(--ink)}
+.props{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+.props div{padding:12px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;gap:2px;min-width:0}
+.props b{font-weight:600;font-size:15px}
+
+section{display:grid;gap:20px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.sec-head h2{font-size:26px;font-weight:700}
+
+.systems{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.sys{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.sys h3{font-size:18px;font-weight:700;display:flex;gap:10px;align-items:center}
+.sys h3::before{content:"";width:10px;height:3px;background:var(--accent);flex:none}
+.sys p{color:var(--muted);font-size:15px}
+
+.codes{display:grid;gap:10px}
+.code{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;min-width:0}
+.code summary{cursor:pointer;list-style:none;padding:14px 18px;display:flex;gap:12px;align-items:center;font-family:var(--display);font-weight:700;font-size:18px}
+.code summary::-webkit-details-marker{display:none}
+.code summary::after{content:"+";margin-left:auto;font-family:var(--mono);color:var(--muted);font-size:18px}
+.code[open] summary::after{content:"−"}
+.code .num{font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 6px;border-radius:3px;background:var(--accent);color:var(--accent-ink)}
+.code-body{padding:0 18px 18px;display:grid;gap:12px;min-width:0}
+.code-body > p{color:var(--muted);font-size:15px;max-width:70ch}
+.code-wrap{position:relative;min-width:0}
+.code-wrap pre{margin:0;background:var(--code-bg);color:var(--code-fg);font-family:var(--mono);font-size:13px;line-height:1.55;padding:16px;border-radius:6px;overflow-x:auto;max-height:520px}
+pre .k{color:var(--code-k)} pre .t{color:var(--code-t)} pre .c{color:var(--code-c);font-style:italic}
+.copy{position:absolute;top:8px;right:8px;font:600 12px var(--body);padding:4px 10px;border-radius:3px;border:1px solid #3a4160;background:#22283f;color:#dfe3f0;cursor:pointer}
+
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.gallery.single{grid-template-columns:1fr}
+.gallery figure{margin:0;position:relative;background:var(--shot);border-radius:6px;overflow:hidden;min-height:180px;display:grid}
+.gallery img{width:100%;height:100%;max-height:420px;object-fit:contain;display:block;cursor:zoom-in;background:var(--shot)}
+.gallery figcaption{position:absolute;left:8px;bottom:8px;font-family:var(--mono);font-size:11px;padding:2px 6px;border-radius:3px;background:rgba(10,12,22,.8);color:#e7e9f2}
+.gallery figure.missing{place-items:center}
+.gallery figure.missing img{display:none}
+.gallery figure.missing figcaption{position:static;background:none;color:#9aa1b9}
+
+footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+
+#lb{position:fixed;inset:0;background:rgba(5,7,14,.92);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:50;cursor:zoom-out}
+#lb img{max-height:92vh;object-fit:contain;border-radius:4px}
+
+@media (max-width:720px){.systems,.gallery{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="back" href="../index.html">← Dorian Santiago</a><div class="links"><a href="../index.html#work">All work</a><a href="../assets/DorianSantiago_Resume.docx">Résumé</a><a href="../index.html#contact">Contact</a></div></nav>
+  <header class="hero">
+    <span class="label">Project · Unreal Engine 5 · In progress</span>
+    <h1>Bump In The Night</h1>
+    <p class="lede">Survival horror on a randomized map. Hunt for clues and solve puzzles to escape while something hunts you.</p>
+    <div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">Blueprints</span><span class="tag">Interfaces</span><span class="tag">Stealth</span><span class="tag">Puzzles</span></div>
+    <div class="props"><div><span class="label">Engine</span><b>Unreal Engine 5</b></div><div><span class="label">Genre</span><b>Survival horror</b></div><div><span class="label">Status</span><b>In progress</b></div><div><span class="label">Focus</span><b>Interaction, stealth, puzzles</b></div></div>
+  </header>
+  <section>
+    <div class="sec-head"><h2>What's in it</h2></div>
+    <div class="systems"><div class="sys"><h3>Randomized map</h3><p>Each run picks a different map, so you can't memorize the route out.</p></div><div class="sys"><h3>Environmental storytelling</h3><p>Clues scattered around the level tell the story and point you toward the exit.</p></div><div class="sys"><h3>Puzzles and quests</h3><p>Interactive puzzles and quest steps gate your escape. They're built on interfaces, so new puzzles plug in without rewiring the player.</p></div><div class="sys"><h3>Stealth</h3><p>Vault over obstacles and hide in lockers to break line of sight. Each level has its own AI behavior and environmental effects.</p></div></div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>Interaction system</h2><span class="label">Click to enlarge</span></div>
+    <p class="note">The player sends one interact call, and doors, items and lockers each answer it their own way through a shared Blueprint interface.</p>
+    <div class="gallery "><figure><img src="../assets/playerinteract.png" alt="Player interaction Blueprint" loading="lazy"><figcaption>Player sends interact</figcaption></figure><figure><img src="../assets/doorinteract.png" alt="Door interaction Blueprint" loading="lazy"><figcaption>Door</figcaption></figure><figure><img src="../assets/lockerinteract.png" alt="Locker hiding Blueprint" loading="lazy"><figcaption>Locker hiding</figcaption></figure></div>
+  </section>
+
+  <footer><a href="../index.html">← Back to all work</a><span>© 2026 Dorian Santiago</span></footer>
+</div>
+<div id="lb" hidden><img alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), lbi=lb.querySelector('img');
+  document.querySelectorAll('.gallery img').forEach(function(img){
+    function miss(){img.parentElement.classList.add('missing');}
+    if(img.complete && img.naturalWidth===0) miss();
+    img.addEventListener('error',miss);
+    img.addEventListener('click',function(){lbi.src=img.src;lbi.alt=img.alt;lb.hidden=false;});
+  });
+  lb.addEventListener('click',function(){lb.hidden=true;});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.hidden=true;});
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=b.closest('.code').querySelector('pre');
+      function sel(){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';}
+      try{navigator.clipboard.writeText(pre.innerText).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy';},1500);},sel);}catch(e){sel();}
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,230 +1,373 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dorian Santiago - Game Dev Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
-      color: #eaeaea;
-      line-height: 1.6;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dorian Santiago</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Dorian Santiago, gameplay programmer. UE5 C++ combat, AI and progression systems. Graduating May 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column styled like an engine details panel; projects are module entries with real Blueprint/C++ captures */
+:root{
+  --bg:#eef0f4; --panel:#ffffff; --ink:#151a2b; --muted:#5a6178; --line:#d5d9e3;
+  --accent:#d9561f; --accent-ink:#ffffff; --cool:#2f4fbf; --chip:#e4e8f2; --shot:#1b2033;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1220; --panel:#171b2d; --ink:#e7e9f2; --muted:#9aa1b9; --line:#2a3049;
+  --accent:#ff7a3d; --accent-ink:#1a0d05; --cool:#8ea6ff; --chip:#22283f; --shot:#0b0e19; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1220; --panel:#171b2d; --ink:#e7e9f2; --muted:#9aa1b9; --line:#2a3049;
+  --accent:#ff7a3d; --accent-ink:#1a0d05; --cool:#8ea6ff; --chip:#22283f; --shot:#0b0e19; color-scheme:dark}
 
-    header {
-      text-align: center;
-      padding: 5rem 1rem;
-      background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-    }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+img{max-width:100%}
+.wrap{max-width:980px;margin:0 auto;padding-block:40px 72px;display:grid;gap:72px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+a{color:var(--cool)}
+code{font-family:var(--mono);font-size:.9em}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
-    header h1 {
-      font-size: 3.5rem;
-      color: #4da6ff;
-      margin: 0;
-    }
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+nav .me{font-family:var(--display);font-weight:800;font-size:20px;text-decoration:none;color:var(--ink)}
+nav .links{display:flex;gap:18px;flex-wrap:wrap}
+nav .links a{color:var(--muted);text-decoration:none;font-size:15px}
+nav .links a:hover{color:var(--ink)}
 
-    header p {
-      font-size: 1.3rem;
-      color: #aaa;
-    }
+/* hero */
+.hero{display:grid;gap:20px}
+.hero h1{font-size:clamp(44px,8vw,84px);font-weight:800;letter-spacing:-.02em}
+.hero h1 span{color:var(--accent)}
+.hero .role{font-family:var(--display);font-size:clamp(20px,3vw,26px);font-weight:500;color:var(--muted);max-width:34ch}
+.props{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+.props div{padding:12px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;gap:2px;min-width:0}
+.props b{font-weight:600;font-size:15px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:4px;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--panel);font:600 15px var(--body);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 
-    .container {
-      max-width: 1100px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-    }
+section{display:grid;gap:24px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.sec-head h2{font-size:28px;font-weight:700}
 
-    h2 {
-      color: #4da6ff;
-      margin-bottom: 1rem;
-      text-align: center;
-      font-size: 2rem;
-    }
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:3px;background:var(--chip);color:var(--ink)}
+.tag.hot{background:var(--accent);color:var(--accent-ink)}
+ul.sys{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+ul.sys li{padding-left:18px;position:relative}
+ul.sys li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--accent)}
 
-    /* About */
-    .about {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
+/* featured */
+.feature{background:var(--panel);border:1px solid var(--line);border-radius:8px;display:grid;grid-template-columns:1fr;overflow:hidden}
+.feature > *{min-width:0}
+.feature .info{padding:28px;display:grid;gap:16px;align-content:start}
+.feature h3{font-size:30px;font-weight:800}
+.story{border-top:1px solid var(--line);padding-top:16px;display:grid;gap:8px}
+.story h4{margin:0;font-family:var(--display);font-size:17px}
+.story p{color:var(--muted);font-size:15px}
+.widget{border-left:1px solid var(--line);padding:28px;display:grid;gap:16px;align-content:start}
+.widget .formula{font-family:var(--mono);font-size:15px;padding:10px 12px;background:var(--chip);border-radius:4px;overflow-x:auto;white-space:nowrap}
+.slider{display:grid;gap:4px}
+.slider label{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+.slider output{font-family:var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.bar{height:14px;border-radius:2px;background:var(--chip);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .15s}
+.readout{display:flex;justify-content:space-between;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:14px}
+.readout strong{font-size:22px;color:var(--accent)}
+.note{font-size:13px;color:var(--muted)}
 
-    .about p {
-      max-width: 700px;
-      margin: 0 auto;
-      color: #ccc;
-      font-size: 1.1rem;
-    }
+/* project rows with captures */
+.proj{background:var(--panel);border:1px solid var(--line);border-radius:8px;display:grid;grid-template-columns:1fr 1.1fr;overflow:hidden}
+.proj > *{min-width:0}
+.proj .info{padding:26px;display:grid;gap:14px;align-content:start}
+.proj h3{font-size:24px;font-weight:800}
+.proj .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.status{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--cool)}
+.proj p{color:var(--muted);font-size:15px}
+.more{font-weight:600;text-decoration:none}
+.more:hover{text-decoration:underline}
+.shots{background:var(--shot);display:grid;gap:2px;grid-template-columns:1fr 1fr;align-content:start}
+.shots figure{margin:0;position:relative;background:var(--shot);min-height:150px;display:grid}
+.shots figure:first-child{grid-column:1 / -1;min-height:220px}
+.shots img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+.shots figcaption{position:absolute;left:8px;bottom:8px;font-family:var(--mono);font-size:11px;padding:2px 6px;border-radius:3px;background:rgba(10,12,22,.78);color:#e7e9f2}
+.shots figure.missing{place-items:center}
+.shots figure.missing img{display:none}
+.shots figure.missing figcaption{position:static;background:none;color:#9aa1b9}
+pre.snip{margin:0;font-family:var(--mono);font-size:13px;line-height:1.5;background:var(--chip);border-radius:4px;padding:12px 14px;overflow-x:auto}
+pre.snip .k{color:var(--accent)} pre.snip .c{color:var(--muted)}
 
-    /* Projects */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
+/* jam game */
+.jam{background:var(--panel);border:1px solid var(--line);border-radius:8px;display:grid;grid-template-columns:315px 1fr;overflow:hidden}
+.jam > *{min-width:0}
+.jam .cover{position:relative;display:block;background:var(--shot);min-height:250px}
+.jam .cover img{width:100%;height:100%;object-fit:cover;display:block}
+.jam .cover span{position:absolute;left:10px;bottom:10px;font:600 13px var(--body);padding:6px 10px;border-radius:3px;background:var(--accent);color:var(--accent-ink)}
+.jam .cover.missing img{display:none}
+.jam .info{padding:26px;display:grid;gap:14px;align-content:start}
+.jam h3{font-size:24px;font-weight:800}
+.jam .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.jam p{color:var(--muted);font-size:15px}
 
-    .project-card {
-      background: #1c1c1c;
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      transition: transform 0.2s ease, background 0.3s ease;
-    }
+/* smaller work */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;display:grid;gap:12px;align-content:start;min-width:0}
+.card .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.card h3{font-size:20px;font-weight:700}
+.card p{color:var(--muted);font-size:15px}
 
-    .project-card:hover {
-      transform: translateY(-5px);
-      background: #242424;
-    }
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.skills > div{display:grid;gap:10px;align-content:start;min-width:0}
+.skills h3{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
 
-    .project-card h3 {
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
+.rows{display:grid}
+.row{display:grid;grid-template-columns:180px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.row > *{min-width:0}
+.row .when{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.row h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.row p{color:var(--muted);font-size:15px}
 
-    .project-card p {
-      color: #aaa;
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
-    }
+.contact{background:var(--ink);color:var(--bg);border-radius:8px;padding:32px;display:grid;gap:16px}
+.contact h2{font-size:clamp(28px,5vw,40px);font-weight:800}
+.contact .line{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.contact code{font-size:16px;user-select:all}
+.contact a{color:var(--bg)}
+.contact .btn{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent)}
+footer{font-size:13px;color:var(--muted)}
 
-    .project-card a {
-      display: inline-block;
-      padding: 0.6rem 1.2rem;
-      background: #4da6ff;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(5,7,14,.92);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:50;cursor:zoom-out}
+#lb img{max-height:90vh;object-fit:contain;border-radius:4px}
 
-    .project-card a:hover {
-      background: #3385cc;
-    }
-
-    /* Resume */
-    .resume {
-      text-align: center;
-      margin: 3rem 0;
-    }
-
-    .resume a {
-      padding: 0.8rem 1.5rem;
-      background: #4da6ff;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
-
-    .resume a:hover {
-      background: #3385cc;
-    }
-
-    /* Contact */
-    .contact {
-      text-align: center;
-      margin: 3rem 0;
-    }
-
-    .contact p {
-      color: #ccc;
-      font-size: 1.1rem;
-    }
-
-    .contact a {
-      color: #4da6ff;
-      text-decoration: none;
-      margin: 0 0.5rem;
-      transition: color 0.3s ease;
-    }
-
-    .contact a:hover {
-      color: #3385cc;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      margin-top: 3rem;
-      color: #777;
-      border-top: 1px solid #333;
-    }
-  </style>
+@media (max-width:780px){
+  .feature,.proj,.jam{grid-template-columns:1fr}
+  .grid,.skills{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+</style>
 </head>
 <body>
-  <!-- Hero -->
-<header>
-  <h1>Dorian Santiago</h1>
-  <p>Game Developer • C++ • C# • Unreal Engine • Unity</p>
-</header>
+<div class="wrap">
 
+  <nav>
+    <a class="me" href="#">DS</a>
+    <div class="links"><a href="#work">Work</a><a href="#skills">Skills</a><a href="https://mrgaming201712.itch.io/" target="_blank" rel="noopener">itch.io</a><a href="assets/DorianSantiago_Resume.docx">Résumé</a><a href="#contact">Contact</a></div>
+  </nav>
 
-  <div class="container">
-    <!-- About Me -->
-    <section class="about">
-      <h2>About Me</h2>
-      <p>
-        I’m a passionate game developer focused on building immersive gameplay 
-        experiences with within Unreal Engine and Unity. My projects include combat systems, 
-        AI logic, and gameplay mechanics. I’m seeking opportunities to 
-        apply my skills in gameplay programming and design while continuing to grow 
-        as a developer.
-      </p>
-    </section>
+  <header class="hero">
+    <span class="label">Gameplay Programmer</span>
+    <h1>Dorian <span>Santiago</span></h1>
+    <p class="role">I build combat, enemy AI and progression systems in Unreal Engine 5, mostly in C++.</p>
+    <div class="props">
+      <div><span class="label">Degree</span><b>BS Computer Science, Game Dev</b></div>
+      <div><span class="label">School</span><b>Florida Polytechnic University</b></div>
+      <div><span class="label">Graduating</span><b>May 2027</b></div>
+      <div><span class="label">Location</span><b>Lakeland, FL · Open to relocate</b></div>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#work">See my work</a>
+      <a class="btn" href="assets/DorianSantiago_Resume.docx">Download résumé</a>
+      <a class="btn" href="https://www.linkedin.com/in/dorian-santiago-34b4a2259/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </header>
 
-    <!-- Projects -->
-    <section class="projects">
-      <h2>Projects</h2>
-      <div class="project-grid">
-        <div class="project-card">
-          <h3>Spooky Bruisers</h3>
-          <p>Spawn Manager System, melee attacks, level up and ability system</p>
-          <a href="projects/spooky_bruisers.html">View Project</a>
+  <section id="work" aria-labelledby="feat-h">
+    <div class="sec-head"><h2 id="feat-h">What I'm building now</h2><span class="label">UE5 · C++</span></div>
+
+    <article class="feature">
+      <div class="info">
+        <div class="tags"><span class="tag hot">Main project</span><span class="tag">Unreal Engine 5</span><span class="tag">C++</span><span class="tag">State Tree</span></div>
+        <h3>Souls-like Arena Roguelite</h3>
+        <p>Wave defense with Souls-style combat and roguelite progression. I prototyped in Blueprints first, then moved the whole gameplay stack into C++.</p>
+        <ul class="sys">
+          <li>Wave spawner with difficulty scaling, boss waves and an endless mode</li>
+          <li>Combat built on a shared character base: combos with input buffering, soft lock-on through motion warping, weapon-trace hit detection</li>
+          <li>Enemy AI on State Tree with custom C++ tasks, plus an attack-token subsystem so only a few enemies swing at once</li>
+          <li>Attributes with derived stats and modifier stacks, and damage built from an <code>FDamageSpec</code></li>
+          <li>Weapons with Souls-style stat scaling, upgrades and two-handing</li>
+          <li>Abilities (projectile, strike, heal, aura), XP and levels, souls currency, inventory and equipment</li>
+        </ul>
+        <div class="story">
+          <h4>The bug that made a system</h4>
+          <p>Players could attack and cast a spell on the same frame. Instead of patching each ability, I wrote an action state component that every action has to go through, so conflicting actions can't overlap.</p>
         </div>
-        <div class="project-card">
-          <h3>Bump In The Night</h3>
-          <p>Survival Horror, stealth mechanics, level specific AI, and an interaction system</p>
-          <a href="projects/bump_in_the_night.html">View Project</a>
-        </div>
-        <div class="project-card">
-          <h3>Dungeon Crawler Souls Like</h3>
-          <p>Random dungeon generation, class selection, and boss fights.</p>
-          <a href="projects/dungeon_crawler.html">View Project</a>
+        <div class="story">
+          <h4>Profiling before guessing</h4>
+          <p>Big waves were dropping frames and Niagara looked guilty. A/B tests cleared it. <code>dumpticks</code> showed the real cost: enemy weapon meshes ticking, four components ticking every frame, and no update rate optimization on character meshes.</p>
         </div>
       </div>
-    </section>
+    </article>
+  </section>
 
-    <!-- Resume -->
-    <section class="resume">
-      <h2>Resume</h2>
-      <a href="assets/DorianSantiago_Resume.docx" target="_blank">View My Resume</a>
-    </section>
+  <section aria-labelledby="proj-h">
+    <div class="sec-head"><h2 id="proj-h">Projects</h2><span class="label">Click a capture to enlarge</span></div>
 
-    <!-- Contact -->
-    <section class="contact">
-      <h2>Contact Me</h2>
-      <p>Email: <a href="mailto:doriansantiago0205@gmail.com">doriansantiago0205@gmail.com</a></p>
-      <p><a href="https://discord.com/users/341379229818028032" target="_blank">Connect on Discord</a></p>
-    </section>
-  </div>
+    <article class="proj">
+      <div class="info">
+        <div class="top"><h3>Dungeon Crawler Souls-like</h3><span class="status">UE5 · C++ & Blueprints</span></div>
+        <p>A Souls-like dungeon crawler with several enemy types, each with its own weapon, and a final boss. Stamina combat, class abilities, and bonfires where you rest and spend souls on stats.</p>
+        <p>The ability layer runs on Unreal's Gameplay Ability System. Abilities are bound to input by gameplay tag, and the HUD updates from attribute-change delegates instead of polling.</p>
+        <pre class="snip"><span class="c">// Abilities fire by input tag, not hardcoded keys</span>
+<span class="k">void</span> AbilityInputTagHeld(<span class="k">const</span> FGameplayTag&amp; InputTag);
+<span class="k">void</span> AbilityInputTagReleased(<span class="k">const</span> FGameplayTag&amp; InputTag);
+<span class="c">// Stats scale from class data by level</span>
+<span class="k">void</span> InitializeDefaultAttributes();</pre>
+        <div class="tags"><span class="tag">GAS</span><span class="tag">Lock-on</span><span class="tag">Behavior Trees</span><span class="tag">Boss fight</span></div>
+        <a class="more" href="projects/dungeon_crawler.html">Full breakdown and code →</a>
+      </div>
+      <div class="shots">
+        <figure><img src="assets/lockon1" alt="Lock-on targeting Blueprint" loading="lazy"><figcaption>Lock-on logic</figcaption></figure>
+        <figure><img src="assets/attack1" alt="Attack logic Blueprint" loading="lazy"><figcaption>Attack logic</figcaption></figure>
+        <figure><img src="assets/ailogic1" alt="Enemy AI Blueprint" loading="lazy"><figcaption>AI logic</figcaption></figure>
+      </div>
+    </article>
 
-  <footer>
-    <p>© 2026 Dorian Santiago</p>
-  </footer>
+    <article class="proj">
+      <div class="info">
+        <div class="top"><h3>Spooky Bruisers</h3><span class="status">UE5 · In progress</span></div>
+        <p>You're the last human, and all you have are your fists. Survive waves of demons, then spend what you earn to upgrade and unlock abilities between rounds.</p>
+        <ul class="sys">
+          <li>Spawn manager that runs the waves</li>
+          <li>First-person melee with a lunge punch and hits timed off animation notifies</li>
+          <li>Level-up and ability system, with a radial ability wheel that slows time while you pick</li>
+        </ul>
+        <div class="tags"><span class="tag">Wave spawning</span><span class="tag">Melee</span><span class="tag">State Tree AI</span></div>
+        <a class="more" href="projects/spooky_bruisers.html">Full breakdown →</a>
+      </div>
+      <div class="shots">
+        <figure><img src="assets/statetree.png" alt="Enemy State Tree" loading="lazy"><figcaption>Enemy State Tree</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="info">
+        <div class="top"><h3>Bump In The Night</h3><span class="status">UE5 · Survival horror</span></div>
+        <p>Survival horror on a randomized map. You hunt for clues and solve puzzles to escape while something hunts you.</p>
+        <ul class="sys">
+          <li>One interaction interface drives doors, items and hiding lockers</li>
+          <li>Stealth: vaulting and hiding</li>
+          <li>Enemy AI and environmental effects tuned per level</li>
+        </ul>
+        <div class="tags"><span class="tag">Interfaces</span><span class="tag">Stealth</span><span class="tag">Puzzles</span></div>
+        <a class="more" href="projects/bump_in_the_night.html">Full breakdown →</a>
+      </div>
+      <div class="shots">
+        <figure><img src="assets/playerinteract.png" alt="Player interaction Blueprint" loading="lazy"><figcaption>Player interact</figcaption></figure>
+        <figure><img src="assets/doorinteract.png" alt="Door interaction Blueprint" loading="lazy"><figcaption>Door</figcaption></figure>
+        <figure><img src="assets/lockerinteract.png" alt="Locker hiding Blueprint" loading="lazy"><figcaption>Locker</figcaption></figure>
+      </div>
+    </article>
+  </section>
+
+  <section aria-labelledby="more-h">
+    <div class="sec-head"><h2 id="more-h">Other work</h2><span class="label">Unreal · Godot · Unity</span></div>
+    <article class="jam">
+      <a class="cover" href="https://mrgaming201712.itch.io/indebitably" target="_blank" rel="noopener"><img src="https://img.itch.zone/aW1nLzMwNzc1NTEwLnBuZw==/315x250%23c/ZPBR8T.png" alt="Indebitably cover art" loading="lazy" onerror="this.parentElement.classList.add('missing')"><span>Play on itch.io</span></a>
+      <div class="info">
+        <div class="top"><h3>Indebitably</h3><span class="status">Respawn Game Jam · Fall 2026</span></div>
+        <p>A push-your-luck money game for two players on one computer. Spin the wheel to grow your pot, then bank it before you land on Bust, and play the stock market between spins. Every spin costs more than the last. After ten rounds, the richest player wins.</p>
+        <p>Made in Godot with a team of four for the Respawn Game Jam. I programmed the core gameplay:</p>
+        <ul class="sys">
+          <li>The wheel and how it spins and slows to a stop</li>
+          <li>The luck logic that picks each wedge, including the odds of Bust</li>
+          <li>A stock market whose share prices rise and fall each round</li>
+          <li>Turn flow: free first spin, rising spin costs, banking, and the ten-round finish</li>
+        </ul>
+        <div class="tags"><span class="tag hot">Playable</span><span class="tag">Godot</span><span class="tag">Game jam</span><span class="tag">Team of 4</span><span class="tag">Windows</span></div>
+        <a class="more" href="https://mrgaming201712.itch.io/indebitably" target="_blank" rel="noopener">Download on itch.io →</a>
+      </div>
+    </article>
+    <div class="grid">
+      <article class="card">
+        <div class="top"><h3>Turn-Based RPG Combat</h3><span class="status">UE5 Blueprints</span></div>
+        <p>A Persona 5 / Clair Obscur-style battle system with a turn manager state machine, targeting, status effects and a scripted tutorial fight. To rebuild an older version, I wrote a Python parser that read 23 binary .uasset files and showed me what to fix.</p>
+      </article>
+      <article class="card">
+        <div class="top"><h3>Grid Tactics RPG</h3><span class="status">Godot 4 · C#</span></div>
+        <p>Tabletop rules on a grid: d20 rolls against Armor Class, spell slots and initiative. Pathfinding on AStarGrid2D, plus a live DM dashboard that can override damage mid-fight.</p>
+      </article>
+      <article class="card">
+        <div class="top"><h3>A Shock Tournament</h3><span class="status">Godot · Lead dev</span></div>
+        <p>A 2D pixel fighter for controllers with eight fighters, each with a signature move, plus charge, projectile and teleport gauges. I'm leading development on a 13-week plan.</p>
+      </article>
+      <article class="card">
+        <div class="top"><h3>Top-Down Melee Brawler</h3><span class="status">Unity · C#</span></div>
+        <p>Fast, responsive combat, and I made all of the 16×16 pixel art and animation myself in Aseprite.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-h">
+    <div class="sec-head"><h2 id="skills-h">Toolkit</h2></div>
+    <div class="skills">
+      <div><h3>Languages</h3><div class="tags"><span class="tag">C++</span><span class="tag">C#</span><span class="tag">Python</span><span class="tag">Java</span></div></div>
+      <div><h3>Engines & tools</h3><div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">Gameplay Ability System</span><span class="tag">State Tree</span><span class="tag">Niagara</span><span class="tag">UMG</span><span class="tag">Godot 4</span><span class="tag">Unity</span><span class="tag">Aseprite</span></div></div>
+      <div><h3>Systems</h3><div class="tags"><span class="tag">Combat & hit detection</span><span class="tag">Enemy AI</span><span class="tag">Attributes & damage</span><span class="tag">Profiling</span><span class="tag">Quests & puzzles</span><span class="tag">Stealth</span></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="exp-h">
+    <div class="sec-head"><h2 id="exp-h">Experience</h2></div>
+    <div class="rows">
+      <div class="row"><span class="when">2026 – 2027</span><div><h3>Capstone, Torch Ignited</h3><p>Six-person team building gamification and engagement analytics for an industry sponsor.</p></div></div>
+      <div class="row"><span class="when">Aug 2024 – May 2025</span><div><h3>Student Assistant, Computer Science · Florida Poly</h3><p>Tutored students in programming, data structures and algorithms, and helped professors with grading.</p></div></div>
+      <div class="row"><span class="when">Jun 2022 – Jul 2024</span><div><h3>Crew Member · Chipotle</h3><p>Led a team of up to three during high-volume service.</p></div></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="c-h">
+    <span class="label" style="color:inherit;opacity:.7">Looking for 2027 gameplay programming roles</span>
+    <h2 id="c-h">Let's talk gameplay.</h2>
+    <div class="line">
+      <code id="email">doriansantiago0205@gmail.com</code>
+      <button class="btn" id="copy" type="button">Copy email</button>
+    </div>
+    <div class="line">
+      <a href="https://www.linkedin.com/in/dorian-santiago-34b4a2259/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://discord.com/users/341379229818028032" target="_blank" rel="noopener">Discord</a>
+      <a href="https://mrgaming201712.itch.io/" target="_blank" rel="noopener">itch.io</a>
+      <a href="assets/DorianSantiago_Resume.docx">Résumé</a>
+    </div>
+  </section>
+
+  <footer>© 2026 Dorian Santiago</footer>
+</div>
+
+<div id="lb" hidden><img alt=""></div>
+
+<script>
+(function(){
+
+  var btn=document.getElementById('copy');
+  btn.addEventListener('click',function(){
+    var t=document.getElementById('email').textContent;
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('email'));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected, press Ctrl+C';}
+    try{navigator.clipboard.writeText(t).then(function(){btn.textContent='Copied';},sel);}catch(e){sel();}
+  });
+
+  var lb=document.getElementById('lb'), lbi=lb.querySelector('img');
+  document.querySelectorAll('.shots img').forEach(function(img){
+    function miss(){img.parentElement.classList.add('missing');}
+    if(img.complete && img.naturalWidth===0) miss();
+    img.addEventListener('error',miss);
+    img.addEventListener('click',function(){lbi.src=img.src;lbi.alt=img.alt;lb.hidden=false;});
+  });
+  lb.addEventListener('click',function(){lb.hidden=true;});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.hidden=true;});
+})();
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
