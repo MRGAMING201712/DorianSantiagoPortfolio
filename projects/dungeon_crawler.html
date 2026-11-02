@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dungeon Crawler Souls-like · Dorian Santiago</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: project pages share the homepage's engine-panel look: hero with a property strip, system cards, collapsible C++ blocks, capture galleries */
+:root{
+  --bg:#eef0f4; --panel:#ffffff; --ink:#151a2b; --muted:#5a6178; --line:#d5d9e3;
+  --accent:#d9561f; --accent-ink:#ffffff; --cool:#2f4fbf; --chip:#e4e8f2; --shot:#1b2033;
+  --code-bg:#161a2a; --code-fg:#dfe3f0; --code-k:#ff8a52; --code-t:#8ea6ff; --code-c:#7f88a6;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1220; --panel:#171b2d; --ink:#e7e9f2; --muted:#9aa1b9; --line:#2a3049;
+  --accent:#ff7a3d; --accent-ink:#1a0d05; --cool:#8ea6ff; --chip:#22283f; --shot:#0b0e19;
+  --code-bg:#0b0e19; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1220; --panel:#171b2d; --ink:#e7e9f2; --muted:#9aa1b9; --line:#2a3049;
+  --accent:#ff7a3d; --accent-ink:#1a0d05; --cool:#8ea6ff; --chip:#22283f; --shot:#0b0e19;
+  --code-bg:#0b0e19; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+img{max-width:100%}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+a{color:var(--cool)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.note{color:var(--muted);font-size:15px;max-width:65ch}
+
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+nav .back{font-family:var(--display);font-weight:700;font-size:18px;text-decoration:none;color:var(--ink)}
+nav .links{display:flex;gap:18px;flex-wrap:wrap}
+nav .links a{color:var(--muted);text-decoration:none;font-size:15px}
+nav .links a:hover{color:var(--ink)}
+
+.hero{display:grid;gap:18px}
+.hero h1{font-size:clamp(38px,7vw,68px);font-weight:800;letter-spacing:-.02em}
+.lede{font-size:clamp(18px,2.4vw,21px);color:var(--muted);max-width:60ch}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:3px;background:var(--chip);color:var(--ink)}
+.props{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+.props div{padding:12px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;gap:2px;min-width:0}
+.props b{font-weight:600;font-size:15px}
+
+section{display:grid;gap:20px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.sec-head h2{font-size:26px;font-weight:700}
+
+.systems{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.sys{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.sys h3{font-size:18px;font-weight:700;display:flex;gap:10px;align-items:center}
+.sys h3::before{content:"";width:10px;height:3px;background:var(--accent);flex:none}
+.sys p{color:var(--muted);font-size:15px}
+
+.codes{display:grid;gap:10px}
+.code{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;min-width:0}
+.code summary{cursor:pointer;list-style:none;padding:14px 18px;display:flex;gap:12px;align-items:center;font-family:var(--display);font-weight:700;font-size:18px}
+.code summary::-webkit-details-marker{display:none}
+.code summary::after{content:"+";margin-left:auto;font-family:var(--mono);color:var(--muted);font-size:18px}
+.code[open] summary::after{content:"−"}
+.code .num{font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 6px;border-radius:3px;background:var(--accent);color:var(--accent-ink)}
+.code-body{padding:0 18px 18px;display:grid;gap:12px;min-width:0}
+.code-body > p{color:var(--muted);font-size:15px;max-width:70ch}
+.code-wrap{position:relative;min-width:0}
+.code-wrap pre{margin:0;background:var(--code-bg);color:var(--code-fg);font-family:var(--mono);font-size:13px;line-height:1.55;padding:16px;border-radius:6px;overflow-x:auto;max-height:520px}
+pre .k{color:var(--code-k)} pre .t{color:var(--code-t)} pre .c{color:var(--code-c);font-style:italic}
+.copy{position:absolute;top:8px;right:8px;font:600 12px var(--body);padding:4px 10px;border-radius:3px;border:1px solid #3a4160;background:#22283f;color:#dfe3f0;cursor:pointer}
+
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.gallery.single{grid-template-columns:1fr}
+.gallery figure{margin:0;position:relative;background:var(--shot);border-radius:6px;overflow:hidden;min-height:180px;display:grid}
+.gallery img{width:100%;height:100%;max-height:420px;object-fit:contain;display:block;cursor:zoom-in;background:var(--shot)}
+.gallery figcaption{position:absolute;left:8px;bottom:8px;font-family:var(--mono);font-size:11px;padding:2px 6px;border-radius:3px;background:rgba(10,12,22,.8);color:#e7e9f2}
+.gallery figure.missing{place-items:center}
+.gallery figure.missing img{display:none}
+.gallery figure.missing figcaption{position:static;background:none;color:#9aa1b9}
+
+footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+
+[hidden]{display:none!important}
+#lb{position:fixed;inset:0;background:rgba(5,7,14,.92);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:50;cursor:zoom-out}
+#lb img{max-height:92vh;object-fit:contain;border-radius:4px}
+
+@media (max-width:720px){.systems,.gallery{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a class="back" href="../index.html">← Dorian Santiago</a><div class="links"><a href="../index.html#work">All work</a><a href="../assets/DorianSantiago_Resume.docx">Résumé</a><a href="../index.html#contact">Contact</a></div></nav>
+  <header class="hero">
+    <span class="label">Project · Unreal Engine 5</span>
+    <h1>Dungeon Crawler Souls-like</h1>
+    <p class="lede">A Souls-like dungeon crawler with several enemy types, each with its own weapon, and a boss at the end. Stamina combat, class abilities, and bonfires where you rest and level up.</p>
+    <div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">C++</span><span class="tag">Blueprints</span><span class="tag">Gameplay Ability System</span><span class="tag">Behavior Trees</span></div>
+    <div class="props"><div><span class="label">Engine</span><b>Unreal Engine 5</b></div><div><span class="label">Language</span><b>C++ and Blueprints</b></div><div><span class="label">Built with</span><b>GAS, Behavior Trees</b></div><div><span class="label">Focus</span><b>Combat, abilities, AI</b></div></div>
+  </header>
+  <section>
+    <div class="sec-head"><h2>What's in it</h2></div>
+    <div class="systems"><div class="sys"><h3>Stamina combat</h3><p>Combat runs on stamina, so you have to time attacks instead of mashing. Hits get a response you can feel.</p></div><div class="sys"><h3>Class abilities on GAS</h3><p>Each class gets its own abilities and starting stats through Unreal's Gameplay Ability System, set up in C++.</p></div><div class="sys"><h3>Enemies and a boss</h3><p>Several enemy types, each with its own weapon and behavior tree AI, building up to a final boss fight.</p></div><div class="sys"><h3>Bonfire progression</h3><p>Rest at bonfires to recover and spend souls on stats that fit how you play.</p></div></div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>C++ highlights</h2><span class="label">Gameplay Ability System</span></div>
+    <p class="note">Four pieces of the ability layer. Each one opens with a short note on what it does and why I built it that way.</p>
+    <div class="codes">
+    <details class="code" id="attr" open>
+      <summary><span class="num">C++</span>Context-aware attribute logic</summary>
+      <div class="code-body">
+        <p>After any Gameplay Effect lands, health and stamina get clamped so they can't go negative or past max. SetEffectProperties pulls who caused the effect and who it hit out of the effect context, so damage, hit reactions and kill credit all read from one place.</p>
+        <div class="code-wrap"><button class="copy" type="button">Copy</button><pre><span class="k">void</span> <span class="t">UMyAttributeSet</span>::PostGameplayEffectExecute(<span class="k">const</span> <span class="t">FGameplayEffectModCallbackData</span>&amp; Data)
+{
+    Super::PostGameplayEffectExecute(Data);
+
+    <span class="t">FEffectProperties</span> Props;
+    SetEffectProperties(Data, Props);
+
+    <span class="k">if</span> (Data.EvaluatedData.Attribute == GetHealthAttribute())
+    {
+        SetHealth(<span class="t">FMath</span>::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+    }
+
+    <span class="k">if</span> (Data.EvaluatedData.Attribute == GetStaminaAttribute())
+    {
+        SetStamina(<span class="t">FMath</span>::Clamp(GetStamina(), 0.f, GetMaxStamina()));
+    }
+}
+
+<span class="k">void</span> <span class="t">UMyAttributeSet</span>::SetEffectProperties(<span class="k">const</span> <span class="t">FGameplayEffectModCallbackData</span>&amp; Data, <span class="t">FEffectProperties</span>&amp; Props) <span class="k">const</span>
+{
+    Props.EffectContextHandle = Data.EffectSpec.GetContext();
+    Props.SourceASC = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
+
+    <span class="k">if</span> (IsValid(Props.SourceASC) &amp;&amp; Props.SourceASC-&gt;AbilityActorInfo.IsValid() &amp;&amp; Props.SourceASC-&gt;AbilityActorInfo.IsValid())
+    {
+        Props.SourceAvatarActor = Props.SourceASC-&gt;AbilityActorInfo-&gt;AvatarActor.Get();
+        Props.SourceController = Props.SourceASC-&gt;AbilityActorInfo-&gt;PlayerController.Get();
+        <span class="k">if</span> (Props.SourceController == <span class="k">nullptr</span> &amp;&amp; Props.SourceAvatarActor != <span class="k">nullptr</span>)
+        {
+            <span class="k">if</span> (<span class="k">const</span> <span class="t">APawn</span>* Pawn = Cast&lt;<span class="t">APawn</span>&gt;(Props.SourceAvatarActor))
+            {
+                Props.SourceController = Pawn-&gt;GetController();
+            }
+        }
+        <span class="k">if</span> (Data.Target.AbilityActorInfo.IsValid())
+        {
+            Props.TargetAvatarActor = Data.Target.AbilityActorInfo-&gt;AvatarActor.Get();
+            Props.TargetController = Data.Target.AbilityActorInfo-&gt;PlayerController.Get();
+            Props.TargetCharacter = Cast&lt;<span class="t">ACharacter</span>&gt;(Props.TargetAvatarActor);
+            Props.TargetASC = <span class="t">UAbilitySystemBlueprintLibrary</span>::GetAbilitySystemComponent(Props.TargetAvatarActor);
+        }
+    }
+}</pre></div>
+      </div>
+    </details>
+    <details class="code" id="ui">
+      <summary><span class="num">C++</span>Reactive UI data binding</summary>
+      <div class="code-body">
+        <p>The HUD never polls. The widget controller sends the starting values once, then subscribes to the ability system's attribute-change delegates, so the health and stamina bars update the moment a value changes.</p>
+        <div class="code-wrap"><button class="copy" type="button">Copy</button><pre><span class="k">void</span> <span class="t">UMyOverlayWidgetController</span>::BroadcastInitialValues()
+{
+    <span class="k">const</span> <span class="t">UMyAttributeSet</span>* MyAttributeSet = CastChecked&lt;<span class="t">UMyAttributeSet</span>&gt;(AttributeSet);
+
+    OnHealthChanged.Broadcast(MyAttributeSet-&gt;GetHealth());
+    OnMaxHealthChanged.Broadcast(MyAttributeSet-&gt;GetMaxHealth());
+    OnStaminaChanged.Broadcast(MyAttributeSet-&gt;GetStamina());
+    OnMaxStaminaChanged.Broadcast(MyAttributeSet-&gt;GetMaxStamina());
+}
+
+<span class="k">void</span> <span class="t">UMyOverlayWidgetController</span>::BindCallbackToDependencies()
+{
+    <span class="k">const</span> <span class="t">UMyAttributeSet</span>* MyAttributeSet = CastChecked&lt;<span class="t">UMyAttributeSet</span>&gt;(AttributeSet);
+
+    AbilitySystemComponent-&gt;GetGameplayAttributeValueChangeDelegate(
+        MyAttributeSet-&gt;GetHealthAttribute()).AddLambda(
+            [<span class="k">this</span>](<span class="k">const</span> <span class="t">FOnAttributeChangeData</span>&amp; Data)
+            {
+                OnHealthChanged.Broadcast(Data.NewValue);
+            }
+        );
+
+    AbilitySystemComponent-&gt;GetGameplayAttributeValueChangeDelegate(
+        MyAttributeSet-&gt;GetMaxHealthAttribute()).AddLambda(
+            [<span class="k">this</span>](<span class="k">const</span> <span class="t">FOnAttributeChangeData</span>&amp; Data)
+            {
+                OnMaxHealthChanged.Broadcast(Data.NewValue);
+            }
+        );
+
+    AbilitySystemComponent-&gt;GetGameplayAttributeValueChangeDelegate(
+        MyAttributeSet-&gt;GetStaminaAttribute()).AddLambda(
+            [<span class="k">this</span>](<span class="k">const</span> <span class="t">FOnAttributeChangeData</span>&amp; Data)
+            {
+                OnStaminaChanged.Broadcast(Data.NewValue);
+            }
+        );
+
+    AbilitySystemComponent-&gt;GetGameplayAttributeValueChangeDelegate(
+        MyAttributeSet-&gt;GetMaxStaminaAttribute()).AddLambda(
+            [<span class="k">this</span>](<span class="k">const</span> <span class="t">FOnAttributeChangeData</span>&amp; Data)
+            {
+                OnMaxStaminaChanged.Broadcast(Data.NewValue);
+            }
+        );
+}</pre></div>
+      </div>
+    </details>
+    <details class="code" id="input">
+      <summary><span class="num">C++</span>Tag-based ability input</summary>
+      <div class="code-body">
+        <p>Each ability carries a startup input tag. When a button is held or released, the component finds every ability with that tag and presses or activates it. Remapping controls or swapping a class's abilities never touches input code.</p>
+        <div class="code-wrap"><button class="copy" type="button">Copy</button><pre><span class="k">void</span> <span class="t">UMyAbilitySystemComponent</span>::AddCharacterAbilities(<span class="k">const</span> <span class="t">TArray</span>&lt;<span class="t">TSubclassOf</span>&lt;<span class="t">UGameplayAbility</span>&gt;&gt;&amp; StartupAbilities)
+{
+    <span class="k">for</span> (<span class="t">TSubclassOf</span>&lt;<span class="t">UGameplayAbility</span>&gt; AbilityClass : StartupAbilities)
+    {
+        <span class="t">FGameplayAbilitySpec</span> AbilitySpec = <span class="t">FGameplayAbilitySpec</span>(AbilityClass, 1);
+        <span class="k">if</span> (<span class="k">const</span> <span class="t">UMyBaseGameplayAbility</span>* MyAbility = Cast&lt;<span class="t">UMyBaseGameplayAbility</span>&gt;(AbilitySpec.Ability))
+        {
+            <span class="t">FGameplayTagContainer</span>&amp; DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
+            DynamicTags.AddTag(MyAbility-&gt;StartupInputTag);
+            GiveAbility(AbilitySpec);
+        }
+    }
+}
+
+<span class="k">void</span> <span class="t">UMyAbilitySystemComponent</span>::AbilityInputTagHeld(<span class="k">const</span> <span class="t">FGameplayTag</span>&amp; InputTag)
+{
+    <span class="k">if</span> (!InputTag.IsValid()) <span class="k">return</span>;
+
+    <span class="k">for</span> (<span class="t">FGameplayAbilitySpec</span>&amp; AbilitySpec : GetActivatableAbilities())
+    {
+        <span class="t">FGameplayTagContainer</span>&amp; DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
+        <span class="k">if</span> (DynamicTags.HasTagExact(InputTag))
+        {
+            AbilitySpecInputPressed(AbilitySpec);
+            <span class="k">if</span> (!AbilitySpec.IsActive())
+            {
+                TryActivateAbility(AbilitySpec.Handle);
+            }
+        }
+    }
+}
+
+<span class="k">void</span> <span class="t">UMyAbilitySystemComponent</span>::AbilityInputTagReleased(<span class="k">const</span> <span class="t">FGameplayTag</span>&amp; InputTag)
+{
+    <span class="k">if</span> (!InputTag.IsValid()) <span class="k">return</span>;
+
+    <span class="k">for</span> (<span class="t">FGameplayAbilitySpec</span>&amp; AbilitySpec : GetActivatableAbilities())
+    {
+        <span class="t">FGameplayTagContainer</span>&amp; DynamicTags = AbilitySpec.GetDynamicSpecSourceTags();
+        <span class="k">if</span> (DynamicTags.HasTagExact(InputTag))
+        {
+            TryActivateAbility(AbilitySpec.Handle);
+        }
+    }
+}</pre></div>
+      </div>
+    </details>
+    <details class="code" id="init">
+      <summary><span class="num">C++</span>Data-driven character setup</summary>
+      <div class="code-body">
+        <p>Starting stats come from a class data asset instead of being hardcoded per character. Primary, secondary and vital attributes are applied as Gameplay Effects scaled by level, so a new class is just new data.</p>
+        <div class="code-wrap"><button class="copy" type="button">Copy</button><pre><span class="t">UMyOverlayWidgetController</span>* <span class="t">UMyAbilitySystemBlueprintLibrary</span>::GetOverlayWidgetController(<span class="k">const</span> <span class="t">UObject</span>* WorldContextObject)
+{
+    <span class="k">if</span> (<span class="t">APlayerController</span>* PC = <span class="t">UGameplayStatics</span>::GetPlayerController(WorldContextObject, 0))
+    {
+        <span class="k">if</span> (<span class="t">AMyHUD</span>* MyHUD = Cast&lt;<span class="t">AMyHUD</span>&gt;(PC-&gt;GetHUD()))
+        {
+            <span class="t">AUserPlayerState</span>* PS = PC-&gt;GetPlayerState&lt;<span class="t">AUserPlayerState</span>&gt;();
+            <span class="t">UAbilitySystemComponent</span>* <span class="t">ASC</span> = PS-&gt;GetAbilitySystemComponent();
+            <span class="t">UAttributeSet</span>* <span class="t">AS</span> = PS-&gt;GetAttributeSet();
+            <span class="k">const</span> <span class="t">FWidgetControllerParams</span> WidgetControllerParams(PC, PS, <span class="t">ASC</span>, <span class="t">AS</span>);
+            <span class="k">return</span> MyHUD-&gt;GetOverlayWidgetController(WidgetControllerParams);
+        }
+    }
+    <span class="k">return</span> <span class="k">nullptr</span>;
+}
+
+<span class="k">void</span> <span class="t">UMyAbilitySystemBlueprintLibrary</span>::InitializeDefaultAttributes(<span class="k">const</span> <span class="t">UObject</span>* WorldContextObject, <span class="t">ECharacterClass</span> CharacterClass, <span class="k">float</span> Level, <span class="t">UAbilitySystemComponent</span>* <span class="t">ASC</span>)
+{
+    <span class="t">AMyGamemode</span>* MyGamemode = Cast&lt;<span class="t">AMyGamemode</span>&gt;(<span class="t">UGameplayStatics</span>::GetGameMode(WorldContextObject));
+    <span class="k">if</span> (MyGamemode == <span class="k">nullptr</span>) <span class="k">return</span>;
+
+    <span class="t">AActor</span>* AvatarActor = <span class="t">ASC</span>-&gt;GetAvatarActor();
+
+    <span class="t">UCharacterClassInfo</span>* CharacterClassInfo = MyGamemode-&gt;CharacterClassInfo;
+    <span class="t">FCharacterClassDefaultInfo</span> ClassDefaultInfo = MyGamemode-&gt;CharacterClassInfo-&gt;GetClassDefaultInfo(CharacterClass);
+
+    <span class="t">FGameplayEffectContextHandle</span> PrimaryAttributesContextHandle = <span class="t">ASC</span>-&gt;MakeEffectContext();
+    PrimaryAttributesContextHandle.AddSourceObject(AvatarActor);
+    <span class="k">const</span> <span class="t">FGameplayEffectSpecHandle</span> PrimaryAttributesSpecHandle = <span class="t">ASC</span>-&gt;MakeOutgoingSpec(ClassDefaultInfo.PrimaryAttributes, Level, PrimaryAttributesContextHandle);
+    <span class="t">ASC</span>-&gt;ApplyGameplayEffectSpecToSelf(*PrimaryAttributesSpecHandle.Data.Get());
+
+    <span class="t">FGameplayEffectContextHandle</span> SecondaryAttributesContextHandle = <span class="t">ASC</span>-&gt;MakeEffectContext();
+    SecondaryAttributesContextHandle.AddSourceObject(AvatarActor);
+    <span class="k">const</span> <span class="t">FGameplayEffectSpecHandle</span> SecondaryAttributesSpecHandle = <span class="t">ASC</span>-&gt;MakeOutgoingSpec(ClassDefaultInfo.SecondaryAttributes, Level, SecondaryAttributesContextHandle);
+    <span class="t">ASC</span>-&gt;ApplyGameplayEffectSpecToSelf(*SecondaryAttributesSpecHandle.Data.Get());
+
+    <span class="t">FGameplayEffectContextHandle</span> VitalAttributesContextHandle = <span class="t">ASC</span>-&gt;MakeEffectContext();
+    VitalAttributesContextHandle.AddSourceObject(AvatarActor);
+    <span class="k">const</span> <span class="t">FGameplayEffectSpecHandle</span> VitalAttributesSpecHandle = <span class="t">ASC</span>-&gt;MakeOutgoingSpec(ClassDefaultInfo.VitalAttributes, Level, VitalAttributesContextHandle);
+    <span class="t">ASC</span>-&gt;ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
+}</pre></div>
+      </div>
+    </details>
+    </div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>Lock-on logic</h2><span class="label">Click to enlarge</span></div>
+    <p class="note">The Blueprint graphs behind the lock-on camera.</p>
+    <div class="gallery "><figure><img src="../assets/lockon1" alt="Lock-on Blueprint, part 1" loading="lazy"><figcaption>Part 1</figcaption></figure><figure><img src="../assets/lockon1.5" alt="Lock-on Blueprint, part 2" loading="lazy"><figcaption>Part 2</figcaption></figure><figure><img src="../assets/lockon2" alt="Lock-on Blueprint, part 3" loading="lazy"><figcaption>Part 3</figcaption></figure><figure><img src="../assets/lockon3" alt="Lock-on Blueprint, part 4" loading="lazy"><figcaption>Part 4</figcaption></figure></div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>Attack logic</h2><span class="label">Click to enlarge</span></div>
+    <p class="note">The Blueprint graphs behind melee attacks.</p>
+    <div class="gallery "><figure><img src="../assets/attack1" alt="Attack Blueprint, part 1" loading="lazy"><figcaption>Part 1</figcaption></figure><figure><img src="../assets/attack2" alt="Attack Blueprint, part 2" loading="lazy"><figcaption>Part 2</figcaption></figure><figure><img src="../assets/attack3" alt="Attack Blueprint, part 3" loading="lazy"><figcaption>Part 3</figcaption></figure><figure><img src="../assets/attack4" alt="Attack Blueprint, part 4" loading="lazy"><figcaption>Part 4</figcaption></figure></div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>Enemy AI</h2><span class="label">Click to enlarge</span></div>
+    <p class="note">The Blueprint graphs that drive enemy behavior.</p>
+    <div class="gallery "><figure><img src="../assets/ailogic1" alt="AI Blueprint, part 1" loading="lazy"><figcaption>Part 1</figcaption></figure><figure><img src="../assets/ailogic2" alt="AI Blueprint, part 2" loading="lazy"><figcaption>Part 2</figcaption></figure><figure><img src="../assets/ailogic3" alt="AI Blueprint, part 3" loading="lazy"><figcaption>Part 3</figcaption></figure></div>
+  </section>
+
+  <footer><a href="../index.html">← Back to all work</a><span>© 2026 Dorian Santiago</span></footer>
+</div>
+<div id="lb" hidden><img alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), lbi=lb.querySelector('img');
+  document.querySelectorAll('.gallery img').forEach(function(img){
+    function miss(){img.parentElement.classList.add('missing');}
+    if(img.complete && img.naturalWidth===0) miss();
+    img.addEventListener('error',miss);
+    img.addEventListener('click',function(){lbi.src=img.src;lbi.alt=img.alt;lb.hidden=false;});
+  });
+  lb.addEventListener('click',function(){lb.hidden=true;});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.hidden=true;});
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=b.closest('.code').querySelector('pre');
+      function sel(){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';}
+      try{navigator.clipboard.writeText(pre.innerText).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy';},1500);},sel);}catch(e){sel();}
+    });
+  });
+})();
+</script>
+</body>
+</html>
