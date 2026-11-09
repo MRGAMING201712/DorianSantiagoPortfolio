@@ -201,14 +201,6 @@ footer{font-size:13px;color:var(--muted)}
           <li>Weapons with Souls-style stat scaling, upgrades and two-handing</li>
           <li>Abilities (projectile, strike, heal, aura), XP and levels, souls currency, inventory and equipment</li>
         </ul>
-        <div class="story">
-          <h4>The bug that made a system</h4>
-          <p>Players could attack and cast a spell on the same frame. Instead of patching each ability, I wrote an action state component that every action has to go through, so conflicting actions can't overlap.</p>
-        </div>
-        <div class="story">
-          <h4>Profiling before guessing</h4>
-          <p>Big waves were dropping frames and Niagara looked guilty. A/B tests cleared it. <code>dumpticks</code> showed the real cost: enemy weapon meshes ticking, four components ticking every frame, and no update rate optimization on character meshes.</p>
-        </div>
       </div>
     </article>
   </section>
@@ -220,7 +212,7 @@ footer{font-size:13px;color:var(--muted)}
       <div class="info">
         <div class="top"><h3>Dungeon Crawler Souls-like</h3><span class="status">UE5 · C++ & Blueprints</span></div>
         <p>A Souls-like dungeon crawler with several enemy types, each with its own weapon, and a final boss. Stamina combat, class abilities, and bonfires where you rest and spend souls on stats.</p>
-        <p>The ability layer runs on Unreal's Gameplay Ability System. Abilities are bound to input by gameplay tag, and the HUD updates from attribute-change delegates instead of polling.</p>
+        <p>The ability layer runs on Unreal's Gameplay Ability System. Abilities are bound to input by gameplay tag, and the HUD updates from attribute change delegates instead of polling.</p>
         <pre class="snip"><span class="c">// Abilities fire by input tag, not hardcoded keys</span>
 <span class="k">void</span> AbilityInputTagHeld(<span class="k">const</span> FGameplayTag&amp; InputTag);
 <span class="k">void</span> AbilityInputTagReleased(<span class="k">const</span> FGameplayTag&amp; InputTag);
@@ -242,8 +234,8 @@ footer{font-size:13px;color:var(--muted)}
         <p>You're the last human, and all you have are your fists. Survive waves of demons, then spend what you earn to upgrade and unlock abilities between rounds.</p>
         <ul class="sys">
           <li>Spawn manager that runs the waves</li>
-          <li>First-person melee with a lunge punch and hits timed off animation notifies</li>
-          <li>Level-up and ability system, with a radial ability wheel that slows time while you pick</li>
+          <li>First person melee with a lunge punch and hits timed off animation notifies</li>
+          <li>Level up and ability system, with a radial ability wheel that slows time while you pick</li>
         </ul>
         <div class="tags"><span class="tag">Wave spawning</span><span class="tag">Melee</span><span class="tag">State Tree AI</span></div>
         <a class="more" href="projects/spooky_bruisers.html">Full breakdown →</a>
@@ -279,7 +271,7 @@ footer{font-size:13px;color:var(--muted)}
       <a class="cover" href="https://mrgaming201712.itch.io/indebitably" target="_blank" rel="noopener"><img src="https://img.itch.zone/aW1nLzMwNzc1NTEwLnBuZw==/315x250%23c/ZPBR8T.png" alt="Indebitably cover art" loading="lazy" onerror="this.parentElement.classList.add('missing')"><span>Play on itch.io</span></a>
       <div class="info">
         <div class="top"><h3>Indebitably</h3><span class="status">Respawn Game Jam · Fall 2026</span></div>
-        <p>A push-your-luck money game for two players on one computer. Spin the wheel to grow your pot, then bank it before you land on Bust, and play the stock market between spins. Every spin costs more than the last. After ten rounds, the richest player wins.</p>
+        <p>A push your luck money game for two players on one computer. Spin the wheel to grow your pot, then bank it before you land on Bust, and play the stock market between spins. Every spin costs more than the last. After ten rounds, the richest player wins.</p>
         <p>Made in Godot with a team of four for the Respawn Game Jam. I programmed the core gameplay:</p>
         <ul class="sys">
           <li>The wheel and how it spins and slows to a stop</li>
@@ -294,28 +286,24 @@ footer{font-size:13px;color:var(--muted)}
     <div class="grid">
       <article class="card">
         <div class="top"><h3>Turn-Based RPG Combat</h3><span class="status">UE5 Blueprints</span></div>
-        <p>A Persona 5 / Clair Obscur-style battle system with a turn manager state machine, targeting, status effects and a scripted tutorial fight. To rebuild an older version, I wrote a Python parser that read 23 binary .uasset files and showed me what to fix.</p>
+        <p>A Persona 5 / Clair Obscur style battle system with a turn manager state machine, targeting, status effects and a scripted tutorial fight. </p>
       </article>
       <article class="card">
         <div class="top"><h3>Grid Tactics RPG</h3><span class="status">Godot 4 · C#</span></div>
-        <p>Tabletop rules on a grid: d20 rolls against Armor Class, spell slots and initiative. Pathfinding on AStarGrid2D, plus a live DM dashboard that can override damage mid-fight.</p>
+        <p>Tabletop rules on a grid: d20 rolls against Armor Class, spell slots and initiative. Pathfinding on AStarGrid2D, plus a live DM dashboard that can override damage mid fight.</p>
       </article>
       <article class="card">
-        <div class="top"><h3>A Shock Tournament</h3><span class="status">Godot · Lead dev</span></div>
-        <p>A 2D pixel fighter for controllers with eight fighters, each with a signature move, plus charge, projectile and teleport gauges. I'm leading development on a 13-week plan.</p>
+        <div class="top"><h3>Paint The Town</h3><span class="status">Godot · Lead dev</span></div>
+        <p>A 2D pixel art action game where you are the cities only painter who is trying to paint back the color to the city that the Critic stole away. While fighting against the monsters that crawl from the gray city you fight back using the paint brush and the paint colors with you trying to bring back the colorful city you love.</p>
       </article>
-      <article class="card">
-        <div class="top"><h3>Top-Down Melee Brawler</h3><span class="status">Unity · C#</span></div>
-        <p>Fast, responsive combat, and I made all of the 16×16 pixel art and animation myself in Aseprite.</p>
-      </article>
-    </div>
+    </div>a
   </section>
 
   <section id="skills" aria-labelledby="skills-h">
     <div class="sec-head"><h2 id="skills-h">Toolkit</h2></div>
     <div class="skills">
       <div><h3>Languages</h3><div class="tags"><span class="tag">C++</span><span class="tag">C#</span><span class="tag">Python</span><span class="tag">Java</span></div></div>
-      <div><h3>Engines & tools</h3><div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">Gameplay Ability System</span><span class="tag">State Tree</span><span class="tag">Niagara</span><span class="tag">UMG</span><span class="tag">Godot 4</span><span class="tag">Unity</span><span class="tag">Aseprite</span></div></div>
+      <div><h3>Engines & tools</h3><div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">Gameplay Ability System</span><span class="tag">State Tree</span><span class="tag">Niagara</span><span class="tag">UMG</span><span class="tag">Godot 4</span><span class="tag">Aseprite</span></div></div>
       <div><h3>Systems</h3><div class="tags"><span class="tag">Combat & hit detection</span><span class="tag">Enemy AI</span><span class="tag">Attributes & damage</span><span class="tag">Profiling</span><span class="tag">Quests & puzzles</span><span class="tag">Stealth</span></div></div>
     </div>
   </section>
